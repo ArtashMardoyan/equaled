@@ -3,7 +3,7 @@
 import * as http from 'http';
 import * as debug from 'debug';
 
-import * as config from './config';
+import config from './config';
 import Server from './server';
 
 debug('ts-express:server');
