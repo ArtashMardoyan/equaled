@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./build/.",
-    "build": "tsc && rsync -av src/config build/ --exclude=index.js",
+    "build": "tsc && rsync -av src/config build/ --exclude=index.ts",
     "dev": "./node_modules/nodemon/bin/nodemon.js -e ts --exec \"yarn build && yarn start\"",
-    "test": "yarn build && mocha ./build/."
+    "test": "yarn build && mocha ./build/test"
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
@@ -38,7 +38,7 @@
     "@types/mongoose": "4.7.32",
     "@types/mongoose-paginate": "^5.0.6",
     "@types/nconf": "0.0.37",
-    "@types/node": "8.5.5",
+    "@types/node": "^8.10.1",
     "@types/underscore": "^1.8.8",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",

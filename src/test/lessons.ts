@@ -27,10 +27,9 @@ describe('Lessons', () => {
             chai.request(server)
                 .get('/api/lessons')
                 .end((err, res) => {
-                    console.log(res.body.data);
                     res.should.have.status(200);
-                    res.body.data.lesson.should.be.a('array');
-                    res.body.data.lesson.length.should.be.eql(0);
+                    res.body.data.docs.should.be.a('array');
+                    res.body.data.docs.length.should.be.eql(0);
                     done();
                 });
         });
@@ -50,7 +49,6 @@ describe('Lessons', () => {
                 .post('/api/lessons')
                 .send(lessons)
                 .end((err, res) => {
-                    console.log(res.body);
                     res.should.have.status(422);
                     res.body.should.be.a('object');
                     res.body.data.should.have.property('error');
