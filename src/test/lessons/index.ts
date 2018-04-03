@@ -1,12 +1,12 @@
-///<reference path="../../node_modules/@types/mocha/index.d.ts"/>
+///<reference path="../../../node_modules/@types/mocha/index.d.ts"/>
 'use strict';
 
 process.env.NODE_ENV = 'test';
 
 import * as chaiHttp from 'chai-http';
 
-import Lessons from '../models/Lessons';
-import server from '../server';
+import Lessons from './../../models/Lessons';
+import server from './../../server';
 
 const chai = require('chai');
 const should = chai.should();

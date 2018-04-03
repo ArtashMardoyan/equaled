@@ -4,18 +4,18 @@ import * as _ from 'underscore';
 import {Request, Response} from 'express';
 
 import MagicResponse from './../framework/rest/magicResponse';
-import Lessons from './../models/Lessons';
+import Activities from './../models/Activities';
 
-class LessonController {
+class ActivitiesController {
 
     public actionIndex(req: Request, res: Response): any {
         try {
-            Lessons.paginate({}, {
+            Activities.paginate({}, {
                 page: req.query.page,
                 limit: req.query.limit
 
             })
-                .then((lessons) => MagicResponse.ok(res, lessons))
+                .then((activities) => MagicResponse.ok(res, activities))
                 .catch(() => MagicResponse.internalServer(res));
         } catch (ex) {
             return MagicResponse.internalServer(res);
@@ -24,9 +24,10 @@ class LessonController {
 
     public actionCreate(req: Request, res: Response): any {
         try {
-            const result = _.pick(req.body, 'title', 'overview', 'approach', 'checklist');
+            const result = _.pick(req.body, 'title', 'shortDescription',
+                'objectives', 'duration', 'competencies', 'templateType', 'modality');
 
-            return Lessons.create(result)
+            return Activities.create(result)
                 .then((data) => MagicResponse.created(res, data))
                 .catch((err) => MagicResponse.unprocessableEntity(res, err));
         } catch (ex) {
@@ -36,18 +37,18 @@ class LessonController {
 
     public actionUpdate(req: Request, res: Response): any {
         try {
-            Lessons.findById(req.params.id)
-                .then((lesson) => {
-                    if (_.isEmpty(lesson)) {
+            Activities.findById(req.params.id)
+                .then((activities) => {
+                    if (_.isEmpty(activities)) {
                         return MagicResponse.notFound(res);
                     }
 
-                    const result = _.pick(req.body,
-                        'title', 'overview', 'approach', 'checklist');
+                    const result = _.pick(req.body, 'title', 'shortDescription',
+                        'objectives', 'duration', 'competencies', 'templateType', 'modality');
 
-                    _.assign(lesson, result);
+                    _.assign(activities, result);
 
-                    lesson.save()
+                    activities.save()
                         .then((data) => MagicResponse.ok(res, data))
                         .catch((err) => MagicResponse.unprocessableEntity(res, err));
                 })
@@ -59,13 +60,13 @@ class LessonController {
 
     public actionDelete(req: Request, res: Response): any {
         try {
-            return Lessons.findById(req.params.id)
-                .then((lesson) => {
-                    if (_.isEmpty(lesson)) {
+            return Activities.findById(req.params.id)
+                .then((activities) => {
+                    if (_.isEmpty(activities)) {
                         return MagicResponse.notFound(res);
                     }
 
-                    return lesson.remove()
+                    return activities.remove()
                         .then(() => MagicResponse.noContent(res));
                 })
                 .catch(() => MagicResponse.internalServer(res));
@@ -75,4 +76,4 @@ class LessonController {
     }
 }
 
-export default new LessonController();
+export default new ActivitiesController();

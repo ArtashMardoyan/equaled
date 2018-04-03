@@ -4,7 +4,7 @@ import * as _ from 'underscore';
 import {Request, Response, NextFunction} from 'express';
 
 import HttpStatus from './../http/enums/HttpStatus';
-import config from '../../config';
+import config from './../../config';
 
 interface Error {
     name?: string;
