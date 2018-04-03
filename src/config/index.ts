@@ -5,8 +5,6 @@ import * as config from 'nconf';
 
 config.argv().env();
 
-console.log(__dirname);
-
 const appMode = config.get('NODE_ENV') || 'development';
 
 config.file({file: path.join(__dirname, appMode, 'main.json')});
