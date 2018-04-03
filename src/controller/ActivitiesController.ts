@@ -3,7 +3,7 @@
 import * as _ from 'underscore';
 import {Request, Response} from 'express';
 
-import MagicResponse from '../framework/rest/magicResponse';
+import MagicResponse from './../framework/rest/magicResponse';
 import Activities from './../models/Activities';
 
 class ActivitiesController {
@@ -37,7 +37,7 @@ class ActivitiesController {
 
     public actionUpdate(req: Request, res: Response): any {
         try {
-            return Activities.findById(req.params.id)
+            Activities.findById(req.params.id)
                 .then((activities) => {
                     if (_.isEmpty(activities)) {
                         return MagicResponse.notFound(res);

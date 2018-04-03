@@ -3,7 +3,7 @@
 import * as _ from 'underscore';
 import {Request, Response} from 'express';
 
-import MagicResponse from '../framework/rest/magicResponse';
+import MagicResponse from './../framework/rest/magicResponse';
 import Lessons from './../models/Lessons';
 
 class LessonController {
@@ -36,7 +36,7 @@ class LessonController {
 
     public actionUpdate(req: Request, res: Response): any {
         try {
-            return Lessons.findById(req.params.id)
+            Lessons.findById(req.params.id)
                 .then((lesson) => {
                     if (_.isEmpty(lesson)) {
                         return MagicResponse.notFound(res);
@@ -47,8 +47,9 @@ class LessonController {
 
                     _.assign(lesson, result);
 
-                    return lesson.save()
-                        .then((data) => MagicResponse.ok(res, data));
+                    lesson.save()
+                        .then((data) => MagicResponse.ok(res, data))
+                        .catch((err) => MagicResponse.unprocessableEntity(res, err));
                 })
                 .catch(() => MagicResponse.internalServer(res));
         } catch (ex) {

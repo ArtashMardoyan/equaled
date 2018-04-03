@@ -1,7 +1,7 @@
 'use strict';
 
-const path = require('path');
-const config = require('nconf');
+import * as path from 'path';
+import * as config from 'nconf';
 
 config.argv().env();
 
@@ -22,4 +22,4 @@ config.defaults({
 
 config.required([]);
 
-module.exports = config;
+export default config;

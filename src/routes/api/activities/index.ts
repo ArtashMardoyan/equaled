@@ -1,6 +1,6 @@
 'use strict';
 
-import ActivitiesController from '../../../controller/ActivitiesController';
+import ActivitiesController from './../../../controller/ActivitiesController';
 
 module.exports.autoroute = {
     get: {

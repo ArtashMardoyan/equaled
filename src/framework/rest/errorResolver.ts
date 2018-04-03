@@ -3,15 +3,15 @@
 import * as _ from 'underscore';
 import {Request, Response, NextFunction} from 'express';
 
+import HttpStatus from './../http/enums/HttpStatus';
+import config from './../../config';
+
 interface Error {
     name?: string;
     message?: string;
     statusCode?: number;
     statusName?: string;
 }
-
-import HttpStatus from './../http/enums/HttpStatus';
-import * as config from './../../config';
 
 export default (err: Error, req: Request, res: Response, next: NextFunction) => {
     const statusCode = err.statusCode || HttpStatus.INTERNAL_SERVER_ERROR.code;

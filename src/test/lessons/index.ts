@@ -1,12 +1,12 @@
-///<reference path="../../node_modules/@types/mocha/index.d.ts"/>
+///<reference path="../../../node_modules/@types/mocha/index.d.ts"/>
 'use strict';
 
 process.env.NODE_ENV = 'test';
 
 import * as chaiHttp from 'chai-http';
 
-import Lessons from '../models/Lessons';
-import server from '../server';
+import Lessons from './../../models/Lessons';
+import server from './../../server';
 
 const chai = require('chai');
 const should = chai.should();
@@ -27,7 +27,6 @@ describe('Lessons', () => {
             chai.request(server)
                 .get('/api/lessons')
                 .end((err, res) => {
-                    console.log(res.body.data);
                     res.should.have.status(200);
                     res.body.data.docs.should.be.a('array');
                     res.body.data.docs.length.should.be.eql(0);
@@ -50,7 +49,6 @@ describe('Lessons', () => {
                 .post('/api/lessons')
                 .send(lessons)
                 .end((err, res) => {
-                    console.log(res.body);
                     res.should.have.status(422);
                     res.body.should.be.a('object');
                     res.body.data.should.have.property('error');

@@ -14,7 +14,7 @@ import * as autoRoute from 'express-autoroute';
 
 import NotFoundHttpException from './framework/http/exceptions/NotFoundHttpException';
 import errorResolver from './framework/rest/errorResolver';
-import * as config from './config';
+import config from './config';
 
 class Server {
 
