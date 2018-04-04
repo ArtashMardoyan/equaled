@@ -85,7 +85,7 @@
           "in": "path",
           "required": true,
           "description": "ID of lesson",
-          "type": "ObjectID"
+          "type": "string"
         }
       ],
       "put": {
@@ -172,6 +172,29 @@
         }
       }
     },
+    "/lesson-activities": {
+      "post": {
+        "tags": [
+          "LessonActivity"
+        ],
+        "summary": "Connect Lesson and Activity",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "LessonActivity properties",
+            "schema": {
+              "$ref": "#/definitions/LessonActivity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/activities/{id}": {
       "parameters": [
         {
@@ -179,7 +202,7 @@
           "in": "path",
           "required": true,
           "description": "ID of activity",
-          "type": "ObjectID"
+          "type": "string"
         }
       ],
       "put": {
@@ -222,11 +245,13 @@
         "title",
         "approach",
         "overview",
+        "hasChecklist",
+        "backgroundInfo",
         "checklist"
       ],
       "properties": {
         "_id": {
-          "type": "ObjectID",
+          "type": "string",
           "readOnly": true,
           "uniqueItems": true
         },
@@ -239,8 +264,14 @@
         "approach": {
           "type": "string"
         },
+        "backgroundInfo": {
+          "type": "string"
+        },
+        "hasChecklist": {
+          "type": "boolean"
+        },
         "checklist": {
-         "type": "object",
+          "type": "object",
           "properties": {
             "equipment": {
               "type": "string"
@@ -267,7 +298,7 @@
       ],
       "properties": {
         "_id": {
-          "type": "ObjectID",
+          "type": "string",
           "readOnly": true,
           "uniqueItems": true
         },
@@ -289,10 +320,145 @@
         "templateType": {
           "type": "string",
           "enum": ["content", "assessment"]
+        }
+      }
+    },
+    "LessonActivity": {
+      "required": [
+        "lesssonId",
+        "activityId",
+        "phaseTitle"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "readOnly": true,
+          "uniqueItems": true
         },
-        "modality": {
+        "lesssonId": {
+          "type": "string"
+        },
+        "activityId": {
+          "type": "string"
+        },
+        "phaseTitle": {
+          "type": "string"
+        }
+      }
+    },
+    "Modality": {
+      "required": [
+        "type",
+        "say",
+        "ask",
+        "discuss"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "readOnly": true,
+          "uniqueItems": true
+        },
+        "type": {
           "type": "string",
           "enum": ["whole_class", "groups", "pairs", "individual"]
+        },
+        "say": {
+          "type": "string"
+        },
+        "ask": {
+          "type": "string"
+        },
+        "discuss": {
+          "type": "string"
+        }
+      }
+    },
+    "ActivityStep": {
+      "required": [
+        "title",
+        "intro",
+        "studentInstruction",
+        "type",
+        "contentRef",
+        "defaultModality",
+        "teacherTips",
+        "misconceptions",
+        "questions",
+        "answers",
+        "vocabularyWords",
+        "skills",
+        "vocabularyRef"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "readOnly": true,
+          "uniqueItems": true
+        },
+        "title": {
+          "type": "string"
+        },
+        "intro": {
+          "type": "string"
+        },
+        "studentInstruction": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["slide", "video", "quiz", "interactive"]
+        },
+        "contentRef": {
+          "type": "string"
+        },
+        "defaultModality": {
+          "$ref": "#/definitions/Modality"
+        },
+        "alternativeModality": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Modality"
+          }
+        },
+        "teacherTips": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "misconceptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vocabularyWords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vocabularyRef": {
+          "type": "string"
         }
       }
     }
