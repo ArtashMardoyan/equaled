@@ -3,7 +3,7 @@
 import * as _ from 'underscore';
 import {Request, Response, NextFunction} from 'express';
 
-import HttpStatus from './../http/enums/HttpStatus';
+import HttpStatus from '../magicResponse/HttpStatus';
 import config from './../../config';
 
 interface Error {
