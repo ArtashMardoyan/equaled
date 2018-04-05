@@ -1,5 +1,5 @@
 <h1 align="center">
-  NNPT - Netguru :green_heart: Node.js Project Template :star:
+  NNPT - Equaled :green_heart: Node.js Project Template :star:
 </h1>
 
 <br />
