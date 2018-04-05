@@ -1,7 +1,7 @@
 'use strict';
 
 import HttpException from './HttpException';
-import HttpStatus from '../enums/HttpStatus';
+import HttpStatus from '../../magicResponse/HttpStatus';
 
 /*
  * NotFoundHttpException represents a "Not Found" HTTP exception with status code 404.

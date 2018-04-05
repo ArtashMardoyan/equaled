@@ -12,8 +12,8 @@ import * as paginate from 'express-paginate';
 import * as cookieParser from 'cookie-parser';
 import * as autoRoute from 'express-autoroute';
 
-import NotFoundHttpException from './framework/http/exceptions/NotFoundHttpException';
-import errorResolver from './framework/rest/errorResolver';
+import NotFoundHttpException from './framework/errorResolver/exceptions/NotFoundHttpException';
+import errorResolver from './framework/errorResolver';
 import config from './config';
 
 class Server {
