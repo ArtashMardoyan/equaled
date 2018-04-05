@@ -2,7 +2,7 @@
 
 import * as _ from 'underscore';
 
-import HttpStatus from './../../http/enums/HttpStatus';
+import HttpStatus from '../../magicResponse/HttpStatus';
 
 /*
  * HttpException represents an exception caused by an improper request of the end-user.

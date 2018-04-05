@@ -3,7 +3,7 @@
 import * as _ from 'underscore';
 import {Request, Response} from 'express';
 
-import MagicResponse from './../framework/rest/magicResponse';
+import MagicResponse from './../framework/magicResponse';
 import Lessons from './../models/Lessons';
 
 class LessonController {

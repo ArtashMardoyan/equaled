@@ -3,7 +3,7 @@
 import * as _ from 'underscore';
 import {Response} from 'express';
 
-import HttpStatus from './../http/enums/HttpStatus';
+import HttpStatus from './HttpStatus';
 
 class MagicResponse {
 
