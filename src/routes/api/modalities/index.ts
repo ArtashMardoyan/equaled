@@ -1,26 +1,26 @@
 'use strict';
 
-import ModalityController from './../../../controller/ModalityController';
+import ModalitiesController from './../../../controller/ModalitiesController';
 
 module.exports.autoroute = {
     get: {
         '/': [
-            ModalityController.actionIndex
+            ModalitiesController.actionIndex
         ]
     },
     post: {
         '/': [
-            ModalityController.actionCreate
+            ModalitiesController.actionCreate
         ]
     },
     put: {
         '/:id': [
-            ModalityController.actionUpdate
+            ModalitiesController.actionUpdate
         ]
     },
     delete: {
         '/:id': [
-            ModalityController.actionDelete
+            ModalitiesController.actionDelete
         ]
     }
 };
