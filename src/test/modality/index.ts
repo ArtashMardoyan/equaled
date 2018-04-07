@@ -25,7 +25,7 @@ describe('Modality', () => {
     describe('/GET modality', () => {
         it('it should GET all the modality', (done) => {
             chai.request(server)
-                .get('/api/modality')
+                .get('/api/modalities')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.data.docs.should.be.a('array');
@@ -43,7 +43,7 @@ describe('Modality', () => {
                 discuss: 'test'
             };
             chai.request(server)
-                .post('/api/modality')
+                .post('/api/modalities')
                 .send(modality)
                 .end((err, res) => {
                     res.should.have.status(422);
@@ -63,7 +63,7 @@ describe('Modality', () => {
                 discuss: 'test'
             };
             chai.request(server)
-                .post('/api/modality')
+                .post('/api/modalities')
                 .send(modality)
                 .end((err, res) => {
                     res.should.have.status(201);
@@ -88,7 +88,7 @@ describe('Modality', () => {
             });
             modality.save((err, modality) => {
                 chai.request(server)
-                    .put('/api/modality/' + modality.id)
+                    .put('/api/modalities/' + modality.id)
                     .send({
                         type: 'whole_class',
                         say: 'test',
@@ -116,7 +116,7 @@ describe('Modality', () => {
             });
             modality.save((err, modality) => {
                 chai.request(server)
-                    .delete('/api/modality/' + modality.id)
+                    .delete('/api/modalities/' + modality.id)
                     .end((err, res) => {
                         res.should.have.status(204);
                         res.body.should.be.a('object');

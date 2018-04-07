@@ -3,7 +3,7 @@
 import {Schema, model} from 'mongoose';
 import * as mongoosePaginate from 'mongoose-paginate';
 
-const activitiesSchema: Schema = new Schema({
+const activitySchema: Schema = new Schema({
         title: {
             type: String,
             required: true
@@ -44,6 +44,6 @@ const activitiesSchema: Schema = new Schema({
     }
 );
 
-activitiesSchema.plugin(mongoosePaginate);
+activitySchema.plugin(mongoosePaginate);
 
-export default model('Activities', activitiesSchema);
+export default model('Activity', activitySchema);

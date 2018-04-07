@@ -2,8 +2,8 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Equal Ed  API",
-    "description": "Equal Ed  API"
+    "title": "Equal Ed API",
+    "description": "Equal Ed API"
   },
   "host": "35.185.88.245:8090",
   "basePath": "/api/",

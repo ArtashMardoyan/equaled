@@ -5,7 +5,7 @@ process.env.NODE_ENV = 'test';
 
 import * as chaiHttp from 'chai-http';
 
-import Activities from './../../models/Activities';
+import Activity from './../../models/Activity';
 import server from './../../server';
 
 const chai = require('chai');
@@ -13,9 +13,9 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Activities', () => {
+describe('Activity', () => {
     beforeEach((done) => { // Before each test we empty the database
-        Activities.remove({}, (err) => {
+        Activity.remove({}, (err) => {
             done();
         });
     });
@@ -23,7 +23,7 @@ describe('Activities', () => {
       * Test the /GET route
       */
     describe('/GET activities', () => {
-        it('it should GET all the activities', (done) => {
+        it('it should GET all the activity', (done) => {
             chai.request(server)
                 .get('/api/activities')
                 .end((err, res) => {
@@ -36,8 +36,8 @@ describe('Activities', () => {
     });
 
     describe('/POST activities', () => {
-        it('it should not POST a activities without title overview pages', (done) => {
-            const activities = {
+        it('it should not POST a activity without title overview pages', (done) => {
+            const activity = {
                 shortDescription: 'test',
                 objectives: 'test',
                 duration: 12345,
@@ -47,7 +47,7 @@ describe('Activities', () => {
             };
             chai.request(server)
                 .post('/api/activities')
-                .send(activities)
+                .send(activity)
                 .end((err, res) => {
                     res.should.have.status(422);
                     res.body.should.be.a('object');
@@ -58,8 +58,8 @@ describe('Activities', () => {
                 });
         });
 
-        it('it should POST a activities ', (done) => {
-            const activities = {
+        it('it should POST a activity ', (done) => {
+            const activity = {
                 title: 'test',
                 shortDescription: 'test',
                 objectives: 'test',
@@ -70,7 +70,7 @@ describe('Activities', () => {
             };
             chai.request(server)
                 .post('/api/activities')
-                .send(activities)
+                .send(activity)
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.should.be.a('object');
@@ -87,9 +87,9 @@ describe('Activities', () => {
         });
     });
 
-    describe('/PUT/:id activities', () => {
-        it('it should UPDATE a activities given the id', (done) => {
-            const activities = new Activities({
+    describe('/PUT/:id activity', () => {
+        it('it should UPDATE a activity given the id', (done) => {
+            const activity = new Activity({
                 title: 'test',
                 shortDescription: 'test',
                 objectives: 'test',
@@ -98,9 +98,9 @@ describe('Activities', () => {
                 templateType: 'content',
                 modality: 'groups'
             });
-            activities.save((err, activities) => {
+            activity.save((err, activity) => {
                 chai.request(server)
-                    .put('/api/activities/' + activities.id)
+                    .put('/api/activities/' + activity.id)
                     .send({
                         title: 'test',
                         shortDescription: 'test',
@@ -121,9 +121,9 @@ describe('Activities', () => {
         });
     });
 
-    describe('/DELETE/:id activities', () => {
-        it('it should DELETE a activities given the id', (done) => {
-            const activities = new Activities({
+    describe('/DELETE/:id activity', () => {
+        it('it should DELETE a activity given the id', (done) => {
+            const activity = new Activity({
                 title: 'test',
                 shortDescription: 'test',
                 objectives: 'test',
@@ -132,9 +132,9 @@ describe('Activities', () => {
                 templateType: 'content',
                 modality: 'groups'
             });
-            activities.save((err, activities) => {
+            activity.save((err, activity) => {
                 chai.request(server)
-                    .delete('/api/activities/' + activities.id)
+                    .delete('/api/activities/' + activity.id)
                     .end((err, res) => {
                         res.should.have.status(204);
                         res.body.should.be.a('object');
