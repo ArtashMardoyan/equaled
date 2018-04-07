@@ -3,7 +3,7 @@
 import {Schema, model} from 'mongoose';
 import * as mongoosePaginate from 'mongoose-paginate';
 
-const lessonsSchema: Schema = new Schema({
+const lessonSchema: Schema = new Schema({
         title: {
             type: String,
             required: true
@@ -37,6 +37,6 @@ const lessonsSchema: Schema = new Schema({
     }
 );
 
-lessonsSchema.plugin(mongoosePaginate);
+lessonSchema.plugin(mongoosePaginate);
 
-export default model('Lessons', lessonsSchema);
+export default model('Lesson', lessonSchema);
