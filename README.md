@@ -14,19 +14,17 @@
 ## Node :nine:.:six:.:one:
 
 ## 🛠 Technology stack
-- [Yarn](https://yarnpkg.com)
 - [Node.js](https://nodejs.org/en/) 8 with [TypeScript](https://typescriptlang.org) (using [ts-node](https://github.com/TypeStrong/ts-node))
+- [MongoDB](https://www.mongodb.com/)
+- [Yarn](https://yarnpkg.com)
+- [TypeScript](https://www.typescriptlang.org/)(type script compiler)
 - [PM2](https://github.com/Unitech/pm2) (process manager)
 - [Mongoose](http://mongoosejs.com/) (DB management)
 - [Swagger](https://swagger.io) (API documentation)
-- [MongoDB](https://www.mongodb.com/)
 - [Mocha](https://mochajs.org/) (testing framework)
 
 ## ⚙️ Setup
-- `./setup.sh` - for creating development and test databases and copying dotenv files
-- Set database `password` in .env.development and .env.test files
-- `yarn migrations` - executing migrations for changes on db schema
-- `yarn start` - running app in dev mode on [http://localhost:3001](http://localhost:3001)
+- `yarn dev` - running app in dev mode on [http://localhost:3001](http://localhost:3001)
 - api prefix: `api/`
 
 
