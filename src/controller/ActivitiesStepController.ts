@@ -4,18 +4,18 @@ import * as _ from 'underscore';
 import {Request, Response} from 'express';
 
 import MagicResponse from './../framework/magicResponse';
-import Activity from './../models/Activity';
+import ActivityStep from './../models/ActivityStep';
 
-class ActivityController {
+class ActivitiesController {
 
     public actionIndex(req: Request, res: Response): any {
         try {
-            Activity.paginate({}, {
+            ActivityStep.paginate({}, {
                 page: req.query.page,
-                limit: req.query.limit
-
+                limit: req.query.limit,
+                populate: ['alternativeModality', 'defaultModality']
             })
-                .then((activity) => MagicResponse.ok(res, activity))
+                .then((activitySteps) => MagicResponse.ok(res, activitySteps))
                 .catch(() => MagicResponse.internalServer(res));
         } catch (ex) {
             return MagicResponse.internalServer(res);
@@ -24,10 +24,11 @@ class ActivityController {
 
     public actionCreate(req: Request, res: Response): any {
         try {
-            const result = _.pick(req.body, 'title', 'shortDescription',
-                'objectives', 'duration', 'competencies', 'templateType', 'modality');
+            const result = _.pick(req.body, 'title', 'intro',
+                'studentInstruction', 'type', 'contentRef', 'defaultModality', 'alternativeModality',
+                'teacherTips', 'misconceptions', 'questions', 'answers', 'vocabularyWords', 'skills', 'vocabularyRef');
 
-            return Activity.create(result)
+            return ActivityStep.create(result)
                 .then((data) => MagicResponse.created(res, data))
                 .catch((err) => MagicResponse.unprocessableEntity(res, err));
         } catch (ex) {
@@ -37,18 +38,19 @@ class ActivityController {
 
     public actionUpdate(req: Request, res: Response): any {
         try {
-            Activity.findById(req.params.id)
-                .then((activity) => {
-                    if (_.isEmpty(activity)) {
+            ActivityStep.findById(req.params.id)
+                .then((activityStep) => {
+                    if (_.isEmpty(activityStep)) {
                         return MagicResponse.notFound(res);
                     }
 
-                    const result = _.pick(req.body, 'title', 'shortDescription',
-                        'objectives', 'duration', 'competencies', 'templateType', 'modality');
+                    const result = _.pick(req.body, 'title', 'intro',
+                        'studentInstruction', 'type', 'contentRef', 'defaultModality', 'alternativeModality',
+                        'teacherTips', 'misconceptions', 'questions', 'answers', 'vocabularyWords', 'skills', 'vocabularyRef');
 
-                    _.assign(activity, result);
+                    _.assign(activityStep, result);
 
-                    activity.save()
+                    activityStep.save()
                         .then((data) => MagicResponse.ok(res, data))
                         .catch((err) => MagicResponse.unprocessableEntity(res, err));
                 })
@@ -60,13 +62,13 @@ class ActivityController {
 
     public actionDelete(req: Request, res: Response): any {
         try {
-            return Activity.findById(req.params.id)
-                .then((activity) => {
-                    if (_.isEmpty(activity)) {
+            return ActivityStep.findById(req.params.id)
+                .then((activityStep) => {
+                    if (_.isEmpty(activityStep)) {
                         return MagicResponse.notFound(res);
                     }
 
-                    return activity.remove()
+                    return activityStep.remove()
                         .then(() => MagicResponse.noContent(res));
                 })
                 .catch(() => MagicResponse.internalServer(res));
@@ -76,4 +78,4 @@ class ActivityController {
     }
 }
 
-export default new ActivityController();
+export default new ActivitiesController();

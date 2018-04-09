@@ -4,18 +4,18 @@ import * as _ from 'underscore';
 import {Request, Response} from 'express';
 
 import MagicResponse from './../framework/magicResponse';
-import Lessons from './../models/Lessons';
+import Lesson from './../models/Lesson';
 
 class LessonController {
 
     public actionIndex(req: Request, res: Response): any {
         try {
-            Lessons.paginate({}, {
+            Lesson.paginate({}, {
                 page: req.query.page,
                 limit: req.query.limit
 
             })
-                .then((lessons) => MagicResponse.ok(res, lessons))
+                .then((lesson) => MagicResponse.ok(res, lesson))
                 .catch(() => MagicResponse.internalServer(res));
         } catch (ex) {
             return MagicResponse.internalServer(res);
@@ -26,7 +26,7 @@ class LessonController {
         try {
             const result = _.pick(req.body, 'title', 'overview', 'approach', 'checklist');
 
-            return Lessons.create(result)
+            return Lesson.create(result)
                 .then((data) => MagicResponse.created(res, data))
                 .catch((err) => MagicResponse.unprocessableEntity(res, err));
         } catch (ex) {
@@ -36,7 +36,7 @@ class LessonController {
 
     public actionUpdate(req: Request, res: Response): any {
         try {
-            Lessons.findById(req.params.id)
+            Lesson.findById(req.params.id)
                 .then((lesson) => {
                     if (_.isEmpty(lesson)) {
                         return MagicResponse.notFound(res);
@@ -59,7 +59,7 @@ class LessonController {
 
     public actionDelete(req: Request, res: Response): any {
         try {
-            return Lessons.findById(req.params.id)
+            return Lesson.findById(req.params.id)
                 .then((lesson) => {
                     if (_.isEmpty(lesson)) {
                         return MagicResponse.notFound(res);

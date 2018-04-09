@@ -5,7 +5,7 @@ process.env.NODE_ENV = 'test';
 
 import * as chaiHttp from 'chai-http';
 
-import Lessons from './../../models/Lessons';
+import Lesson from './../../models/Lesson';
 import server from './../../server';
 
 const chai = require('chai');
@@ -13,9 +13,9 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Lessons', () => {
+describe('Lesson', () => {
     beforeEach((done) => { // Before each test we empty the database
-        Lessons.remove({}, (err) => {
+        Lesson.remove({}, (err) => {
             done();
         });
     });
@@ -23,7 +23,7 @@ describe('Lessons', () => {
       * Test the /GET route
       */
     describe('/GET lessons', () => {
-        it('it should GET all the lessons', (done) => {
+        it('it should GET all the lesson', (done) => {
             chai.request(server)
                 .get('/api/lessons')
                 .end((err, res) => {
@@ -35,9 +35,9 @@ describe('Lessons', () => {
         });
     });
 
-    describe('/POST lessons', () => {
-        it('it should not POST a lessons without title overview pages', (done) => {
-            const lessons = {
+    describe('/POST lesson', () => {
+        it('it should not POST a lesson without title overview pages', (done) => {
+            const lesson = {
                 approach: 'test',
                 checklist: {
                     equipment: 'test',
@@ -47,7 +47,7 @@ describe('Lessons', () => {
             };
             chai.request(server)
                 .post('/api/lessons')
-                .send(lessons)
+                .send(lesson)
                 .end((err, res) => {
                     res.should.have.status(422);
                     res.body.should.be.a('object');
@@ -58,8 +58,8 @@ describe('Lessons', () => {
                 });
         });
 
-        it('it should POST a lessons ', (done) => {
-            const lessons = {
+        it('it should POST a lesson ', (done) => {
+            const lesson = {
                 title: 'The Lord of the Rings',
                 overview: 'J.R.R. Tolkien',
                 approach: 'test',
@@ -71,7 +71,7 @@ describe('Lessons', () => {
             };
             chai.request(server)
                 .post('/api/lessons')
-                .send(lessons)
+                .send(lesson)
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.should.be.a('object');
@@ -85,9 +85,9 @@ describe('Lessons', () => {
         });
     });
 
-    describe('/PUT/:id lessons', () => {
+    describe('/PUT/:id lesson', () => {
         it('it should UPDATE a lesson given the id', (done) => {
-            const lessons = new Lessons({
+            const lesson = new Lesson({
                 title: 'The Lord of the Rings',
                 overview: 'J.R.R. Tolkien',
                 approach: 'updated',
@@ -97,7 +97,7 @@ describe('Lessons', () => {
                     instructions: 'updated'
                 }
             });
-            lessons.save((err, lesson) => {
+            lesson.save((err, lesson) => {
                 chai.request(server)
                     .put('/api/lessons/' + lesson.id)
                     .send({
@@ -123,7 +123,7 @@ describe('Lessons', () => {
 
     describe('/DELETE/:id lesson', () => {
         it('it should DELETE a lesson given the id', (done) => {
-            const lesson = new Lessons({
+            const lesson = new Lesson({
                 title: 'The Lord of the Rings',
                 overview: 'J.R.R. Tolkien',
                 approach: 'test',

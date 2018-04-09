@@ -6,7 +6,7 @@ import {Request, Response} from 'express';
 import MagicResponse from './../framework/magicResponse';
 import Modality from './../models/Modality';
 
-class ModalityController {
+class ModalitiesController {
 
     public actionIndex(req: Request, res: Response): any {
         try {
@@ -75,4 +75,4 @@ class ModalityController {
     }
 }
 
-export default new ModalityController();
+export default new ModalitiesController();
