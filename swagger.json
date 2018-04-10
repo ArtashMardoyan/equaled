@@ -2,8 +2,8 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Equal Ed API",
-    "description": "Equal Ed API"
+    "title": "Equaled",
+    "description": "Equal ed API"
   },
   "host": "35.185.88.245:8090",
   "basePath": "/api/",
@@ -15,6 +15,18 @@
     {
       "name": "Activities",
       "description": "API for Activities"
+    },
+    {
+      "name": "Modalities",
+      "description": "API for Modalities"
+    },
+    {
+      "name": "LessonActivities",
+      "description": "API for LessonActivities"
+    },
+    {
+      "name": "ActivityStep",
+      "description": "API for ActivityStep"
     }
   ],
   "schemes": [
@@ -35,15 +47,15 @@
         "summary": "Get all lessons",
         "parameters": [
           {
-            "name": "limit",
-            "in": "path",
-            "description": "max items per page",
+            "name": "page",
+            "in": "query",
+            "description": "page number",
             "type": "number"
           },
           {
-            "name": "page",
-            "in": "path",
-            "description": "page number",
+            "name": "limit",
+            "in": "query",
+            "description": "max items per page",
             "type": "number"
           }
         ],
@@ -53,6 +65,9 @@
             "schema": {
               "$ref": "#/definitions/Lesson"
             }
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       },
@@ -65,7 +80,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "Lessson properties",
+            "description": "Lesson properties",
             "schema": {
               "$ref": "#/definitions/Lesson"
             }
@@ -73,7 +88,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Lesson"
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity"
           }
         }
       }
@@ -105,7 +126,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Lesson"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Unprocessable entity"
           }
         }
       },
@@ -115,8 +145,11 @@
         ],
         "summary": "Delete Lesson",
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No content"
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       }
@@ -129,15 +162,15 @@
         "summary": "Get all activities",
         "parameters": [
           {
-            "name": "limit",
-            "in": "path",
-            "description": "max items per page",
+            "name": "page",
+            "in": "query",
+            "description": "page number",
             "type": "number"
           },
           {
-            "name": "page",
-            "in": "path",
-            "description": "page number",
+            "name": "limit",
+            "in": "query",
+            "description": "max items per page",
             "type": "number"
           }
         ],
@@ -147,6 +180,9 @@
             "schema": {
               "$ref": "#/definitions/Activity"
             }
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       },
@@ -167,30 +203,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/lesson-activities": {
-      "post": {
-        "tags": [
-          "LessonActivity"
-        ],
-        "summary": "Connect Lesson and Activity",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "LessonActivity properties",
+            "description": "OK",
             "schema": {
-              "$ref": "#/definitions/LessonActivity"
+              "$ref": "#/definitions/Activity"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable entity"
           }
         }
       }
@@ -222,7 +241,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Activity"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Unprocessable entity"
           }
         }
       },
@@ -232,8 +260,356 @@
         ],
         "summary": "Delete Activity",
         "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/modalities": {
+      "get": {
+        "tags": [
+          "Modalities"
+        ],
+        "summary": "Get all modalities",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "type": "number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "max items per page",
+            "type": "number"
+          }
+        ],
+        "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Modality"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Modalities"
+        ],
+        "summary": "Create Modality",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Modality properties",
+            "schema": {
+              "$ref": "#/definitions/Modality"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Modality"
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        }
+      }
+    },
+    "/modalities/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of modality",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Modalities"
+        ],
+        "summary": "Update Modality",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Modality properties",
+            "schema": {
+              "$ref": "#/definitions/Modality"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Modality"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Modalities"
+        ],
+        "summary": "Delete Modality",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/lessonActivities": {
+      "get": {
+        "tags": [
+          "LessonActivities"
+        ],
+        "summary": "Get all LessonActivities",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "type": "number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "max items per page",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LessonActivity"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "LessonActivities"
+        ],
+        "summary": "Create LessonActivity",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "LessonActivity properties",
+            "schema": {
+              "$ref": "#/definitions/LessonActivity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LessonActivity"
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        }
+      }
+    },
+    "/lessonActivities/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of LessonActivity",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": [
+          "LessonActivities"
+        ],
+        "summary": "Update LessonActivity",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Lesson Activity properties",
+            "schema": {
+              "$ref": "#/definitions/LessonActivity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LessonActivity"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "LessonActivities"
+        ],
+        "summary": "Delete LessonActivity",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/activityStep": {
+      "get": {
+        "tags": [
+          "ActivityStep"
+        ],
+        "summary": "Get all ActivityStep",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "type": "number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "max items per page",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ActivityStep"
+        ],
+        "summary": "Create ActivityStep",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "ActivityStep properties",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        }
+      }
+    },
+    "/activityStep/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of ActivityStep",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": [
+          "ActivityStep"
+        ],
+        "summary": "Update ActivityStep",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "ActivityStep properties",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ActivityStep"
+        ],
+        "summary": "Delete ActivityStep",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       }
@@ -319,30 +695,10 @@
         },
         "templateType": {
           "type": "string",
-          "enum": ["content", "assessment"]
-        }
-      }
-    },
-    "LessonActivity": {
-      "required": [
-        "lesssonId",
-        "activityId",
-        "phaseTitle"
-      ],
-      "properties": {
-        "_id": {
-          "type": "string",
-          "readOnly": true,
-          "uniqueItems": true
-        },
-        "lesssonId": {
-          "type": "string"
-        },
-        "activityId": {
-          "type": "string"
-        },
-        "phaseTitle": {
-          "type": "string"
+          "enum": [
+            "content",
+            "assessment"
+          ]
         }
       }
     },
@@ -361,7 +717,12 @@
         },
         "type": {
           "type": "string",
-          "enum": ["whole_class", "groups", "pairs", "individual"]
+          "enum": [
+            "whole_class",
+            "groups",
+            "pairs",
+            "individual"
+          ]
         },
         "say": {
           "type": "string"
@@ -370,6 +731,29 @@
           "type": "string"
         },
         "discuss": {
+          "type": "string"
+        }
+      }
+    },
+    "LessonActivity": {
+      "required": [
+        "lessonId",
+        "activityId",
+        "phaseTitle"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "readOnly": true,
+          "uniqueItems": true
+        },
+        "lessonId": {
+          "type": "string"
+        },
+        "activityId": {
+          "type": "string"
+        },
+        "phaseTitle": {
           "type": "string"
         }
       }
@@ -407,7 +791,12 @@
         },
         "type": {
           "type": "string",
-          "enum": ["slide", "video", "quiz", "interactive"]
+          "enum": [
+            "slide",
+            "video",
+            "quiz",
+            "interactive"
+          ]
         },
         "contentRef": {
           "type": "string"
