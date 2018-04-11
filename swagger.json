@@ -619,11 +619,9 @@
     "Lesson": {
       "required": [
         "title",
-        "approach",
         "overview",
         "hasChecklist",
-        "backgroundInfo",
-        "checklist"
+        "backgroundInfo"
       ],
       "properties": {
         "_id": {
@@ -635,12 +633,6 @@
           "type": "string"
         },
         "overview": {
-          "type": "string"
-        },
-        "approach": {
-          "type": "string"
-        },
-        "backgroundInfo": {
           "type": "string"
         },
         "hasChecklist": {
@@ -659,6 +651,49 @@
               "type": "string"
             }
           }
+        },
+        "backgroundInfo": {
+          "type": "object",
+          "properties": {
+            "approach": {
+              "type": "string"
+            },
+            "content": {
+              "type": "string"
+            },
+            "standards": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "competencies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "lessonPhases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "phaseName": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "activity": {
+          "$ref": "#/definitions/Activity"
         }
       }
     },
@@ -691,7 +726,10 @@
           "type": "number"
         },
         "competencies": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "templateType": {
           "type": "string",
@@ -699,23 +737,14 @@
             "content",
             "assessment"
           ]
-        }
-      }
-    },
-    "Modality": {
-      "required": [
-        "type",
-        "say",
-        "ask",
-        "discuss"
-      ],
-      "properties": {
-        "_id": {
-          "type": "string",
-          "readOnly": true,
-          "uniqueItems": true
         },
         "type": {
+          "type": "string"
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "modality":{
           "type": "string",
           "enum": [
             "whole_class",
@@ -724,37 +753,11 @@
             "individual"
           ]
         },
-        "say": {
-          "type": "string"
-        },
-        "ask": {
-          "type": "string"
-        },
-        "discuss": {
-          "type": "string"
-        }
-      }
-    },
-    "LessonActivity": {
-      "required": [
-        "lessonId",
-        "activityId",
-        "phaseTitle"
-      ],
-      "properties": {
-        "_id": {
-          "type": "string",
-          "readOnly": true,
-          "uniqueItems": true
-        },
-        "lessonId": {
-          "type": "string"
-        },
-        "activityId": {
-          "type": "string"
-        },
-        "phaseTitle": {
-          "type": "string"
+        "activitySteps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActivityStep"
+          }
         }
       }
     },
@@ -765,7 +768,6 @@
         "studentInstruction",
         "type",
         "contentRef",
-        "defaultModality",
         "teacherTips",
         "misconceptions",
         "questions",
@@ -850,6 +852,63 @@
           "type": "string"
         }
       }
+    },
+    "Modality": {
+      "required": [
+        "type",
+        "say",
+        "ask",
+        "discuss"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "readOnly": true,
+          "uniqueItems": true
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "whole_class",
+            "groups",
+            "pairs",
+            "individual"
+          ]
+        },
+        "say": {
+          "type": "string"
+        },
+        "ask": {
+          "type": "string"
+        },
+        "discuss": {
+          "type": "string"
+        }
+      }
+    },
+    "LessonActivity": {
+      "required": [
+        "lessonId",
+        "activityId",
+        "phaseTitle"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "readOnly": true,
+          "uniqueItems": true
+        },
+        "lessonId": {
+          "type": "string"
+        },
+        "activityId": {
+          "type": "string"
+        },
+        "phaseTitle": {
+          "type": "string"
+        }
+      }
     }
+
   }
 }

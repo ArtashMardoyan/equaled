@@ -12,8 +12,8 @@ class ActivityController {
         try {
             Activity.paginate({}, {
                 page: req.query.page,
-                limit: req.query.limit
-
+                limit: req.query.limit,
+                populate: ['activitySteps']
             })
                 .then((activity) => MagicResponse.ok(res, activity))
                 .catch(() => MagicResponse.internalServer(res));
@@ -24,8 +24,17 @@ class ActivityController {
 
     public actionCreate(req: Request, res: Response): any {
         try {
-            const result = _.pick(req.body, 'title', 'shortDescription',
-                'objectives', 'duration', 'competencies', 'templateType', 'modality');
+            const result = _.pick(req.body,
+                'title',
+                'shortDescription',
+                'objectives',
+                'duration',
+                'competencies',
+                'templateType',
+                'type',
+                'thumbnail',
+                'modality',
+                'activitySteps');
 
             return Activity.create(result)
                 .then((data) => MagicResponse.created(res, data))
@@ -43,8 +52,17 @@ class ActivityController {
                         return MagicResponse.notFound(res);
                     }
 
-                    const result = _.pick(req.body, 'title', 'shortDescription',
-                        'objectives', 'duration', 'competencies', 'templateType', 'modality');
+                    const result = _.pick(req.body,
+                        'title',
+                        'shortDescription',
+                        'objectives',
+                        'duration',
+                        'competencies',
+                        'templateType',
+                        'type',
+                        'thumbnail',
+                        'modality',
+                        'activitySteps');
 
                     _.assign(activity, result);
 

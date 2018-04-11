@@ -12,9 +12,9 @@ const lessonSchema: Schema = new Schema({
             type: String,
             required: true,
         },
-        approach: {
-            type: String,
-            required: true
+        hasCheckList: {
+            type: Boolean,
+            default: false
         },
         checklist: {
             equipment: {
@@ -26,6 +26,36 @@ const lessonSchema: Schema = new Schema({
             instructions: {
                 type: String
             }
+        },
+        backgroundInfo: {
+            approach: {
+                type: String
+            },
+            content: {
+                type: String
+            },
+            standards: {
+                type: Array
+            },
+            competencies: {
+                type: Array
+            }
+        },
+        lessonPhases: [{
+            phaseName: {
+                type: String
+            },
+            description: {
+                type: String
+            },
+            duration: {
+                type: Number
+            },
+        }],
+        activity: {
+            type: Schema.Types.ObjectId,
+            ref: 'Activity',
+            autopopulate: true
         }
     },
     {

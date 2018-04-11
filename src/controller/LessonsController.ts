@@ -12,8 +12,14 @@ class LessonController {
         try {
             Lesson.paginate({}, {
                 page: req.query.page,
-                limit: req.query.limit
-
+                limit: req.query.limit,
+                populate: [{
+                    path:'activity',
+                    populate: [{
+                        path:'activitySteps',
+                        populate: ['defaultModality','alternativeModality']
+                    }]
+                }]
             })
                 .then((lesson) => MagicResponse.ok(res, lesson))
                 .catch(() => MagicResponse.internalServer(res));
@@ -24,7 +30,14 @@ class LessonController {
 
     public actionCreate(req: Request, res: Response): any {
         try {
-            const result = _.pick(req.body, 'title', 'overview', 'approach', 'checklist');
+            const result = _.pick(req.body,
+                'title',
+                'overview',
+                'hasCheckList',
+                'checklist',
+                'backgroundInfo',
+                'lessonPhases',
+                'activity');
 
             return Lesson.create(result)
                 .then((data) => MagicResponse.created(res, data))
@@ -43,7 +56,13 @@ class LessonController {
                     }
 
                     const result = _.pick(req.body,
-                        'title', 'overview', 'approach', 'checklist');
+                        'title',
+                        'overview',
+                        'hasCheckList',
+                        'checklist',
+                        'backgroundInfo',
+                        'lessonPhases',
+                        'activity');
 
                     _.assign(lesson, result);
 

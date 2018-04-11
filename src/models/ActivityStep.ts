@@ -28,13 +28,11 @@ const activityStepSchema: Schema = new Schema({
         defaultModality: {
             type: Schema.Types.ObjectId,
             ref: 'Modality',
-            required: true,
             autopopulate: true
         },
         alternativeModality: [{
             type: Schema.Types.ObjectId,
             ref: 'Modality',
-            required: true,
             autopopulate: true
         }],
         teacherTips: [{
@@ -65,7 +63,6 @@ const activityStepSchema: Schema = new Schema({
             type: String,
             required: true
         }
-
     },
     {
         versionKey: false,
