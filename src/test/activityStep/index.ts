@@ -118,8 +118,8 @@ describe('ActivityStep', () => {
 
     describe('/PUT/:id activityStep', () => {
         it('it should UPDATE a activityStep given the id', (done) => {
-            const activityStep = new ActivityStep({
-                title: 'test1',
+            let data = {
+                title: 'updated',
                 intro: 'test1',
                 studentInstruction: 'test1',
                 type: 'slide',
@@ -137,30 +137,12 @@ describe('ActivityStep', () => {
                 vocabularyWords: 'test',
                 skills: 'test',
                 vocabularyRef: 123
-            });
+            };
+            const activityStep = new ActivityStep(data);
             activityStep.save((err, activityStep) => {
                 chai.request(server)
                     .put('/api/activityStep/' + activityStep.id)
-                    .send({
-                        title: 'updated',
-                        intro: 'updated',
-                        studentInstruction: 'test1',
-                        type: 'slide',
-                        contentRef: 'test',
-                        defaultModality: {
-                            _id: '5ac8fda5c8f1f72190e53bbe'
-                        },
-                        alternativeModality: {
-                            _id: '5ac8fda5c8f1f72190e53bbe'
-                        },
-                        teacherTips: [234, 567],
-                        misconceptions: 'updated',
-                        questions: 'test',
-                        answers: '12345',
-                        vocabularyWords: 'test',
-                        skills: 'test',
-                        vocabularyRef: 123
-                    })
+                    .send(data)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');

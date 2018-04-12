@@ -80,26 +80,22 @@ describe('Modality', () => {
 
     describe('/PUT/:id modality', () => {
         it('it should UPDATE a modality given the id', (done) => {
-            const modality = new Modality({
+            let data = {
                 type: 'individual',
                 say: 'test',
                 ask: 'test',
                 discuss: 'test'
-            });
+            };
+            const modality = new Modality(data);
             modality.save((err, modality) => {
                 chai.request(server)
                     .put('/api/modalities/' + modality.id)
-                    .send({
-                        type: 'whole_class',
-                        say: 'test',
-                        ask: 'test',
-                        discuss: 'test'
-                    })
+                    .send(data)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('name').eql('Ok');
-                        res.body.data.should.have.property('type').eql('whole_class');
+                        res.body.data.should.have.property('type').eql('individual');
                         done();
                     });
             });
