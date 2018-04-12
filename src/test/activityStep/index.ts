@@ -118,7 +118,7 @@ describe('ActivityStep', () => {
 
     describe('/PUT/:id activityStep', () => {
         it('it should UPDATE a activityStep given the id', (done) => {
-            let data = {
+            const data = {
                 title: 'updated',
                 intro: 'test1',
                 studentInstruction: 'test1',
