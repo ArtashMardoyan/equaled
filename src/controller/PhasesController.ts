@@ -4,28 +4,24 @@ import * as _ from 'underscore';
 import {Request, Response} from 'express';
 
 import MagicResponse from './../framework/magicResponse';
-import Lesson from './../models/Lesson';
+import Phase from './../models/Phase';
 
-class LessonController {
+class PhaseController {
 
     public actionIndex(req: Request, res: Response): any {
         try {
-            Lesson.paginate({}, {
+            Phase.paginate({}, {
                 page: req.query.page,
                 limit: req.query.limit,
-                populate:[{
-                    path:'phases',
+                populate: [{
+                    path:'activities',
                     populate: [{
-                        path:'activities',
-                        populate: [{
-                            path:'activitySteps',
-                            populate: ['defaultModality','alternativeModality']
-                        }]
+                        path:'activitySteps',
+                        populate: ['defaultModality','alternativeModality']
                     }]
                 }]
-
             })
-                .then((lesson) => MagicResponse.ok(res, lesson))
+                .then((phase) => MagicResponse.ok(res, phase))
                 .catch(() => MagicResponse.internalServer(res));
         } catch (ex) {
             return MagicResponse.internalServer(res);
@@ -35,15 +31,13 @@ class LessonController {
     public actionCreate(req: Request, res: Response): any {
         try {
             const result = _.pick(req.body,
-                'title',
-                'overview',
-                'hasCheckList',
-                'checklist',
-                'backgroundInfo',
-                'phases');
+                'name',
+                'description',
+                'duration',
+                'activities');
 
-            return Lesson.create(result)
-                .then((lesson) => MagicResponse.created(res, lesson))
+            return Phase.create(result)
+                .then((phase) => MagicResponse.created(res, phase))
                 .catch((err) => MagicResponse.unprocessableEntity(res, err));
         } catch (ex) {
             return MagicResponse.internalServer(res);
@@ -52,24 +46,22 @@ class LessonController {
 
     public actionUpdate(req: Request, res: Response): any {
         try {
-            Lesson.findById(req.params.id)
-                .then((lesson) => {
-                    if (_.isEmpty(lesson)) {
+            Phase.findById(req.params.id)
+                .then((phase) => {
+                    if (_.isEmpty(phase)) {
                         return MagicResponse.notFound(res);
                     }
 
                     const result = _.pick(req.body,
-                        'title',
-                        'overview',
-                        'hasCheckList',
-                        'checklist',
-                        'backgroundInfo',
-                        'phases');
+                        'name',
+                        'description',
+                        'duration',
+                        'activities');
 
-                    _.assign(lesson, result);
+                    _.assign(phase, result);
 
-                    lesson.save()
-                        .then((lesson) => MagicResponse.ok(res, lesson))
+                    phase.save()
+                        .then((phase) => MagicResponse.ok(res, phase))
                         .catch((err) => MagicResponse.unprocessableEntity(res, err));
                 })
                 .catch(() => MagicResponse.internalServer(res));
@@ -80,13 +72,14 @@ class LessonController {
 
     public actionDelete(req: Request, res: Response): any {
         try {
-            return Lesson.findById(req.params.id)
-                .then((lesson) => {
-                    if (_.isEmpty(lesson)) {
+            console.log(req.params.id);
+            return Phase.findById(req.params.id)
+                .then((phase) => {
+                    if (_.isEmpty(phase)) {
                         return MagicResponse.notFound(res);
                     }
 
-                    return lesson.remove()
+                    return phase.remove()
                         .then(() => MagicResponse.noContent(res));
                 })
                 .catch(() => MagicResponse.internalServer(res));
@@ -96,4 +89,4 @@ class LessonController {
     }
 }
 
-export default new LessonController();
+export default new PhaseController();

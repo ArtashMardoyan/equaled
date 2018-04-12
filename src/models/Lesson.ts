@@ -41,22 +41,11 @@ const lessonSchema: Schema = new Schema({
                 type: Array
             }
         },
-        lessonPhases: [{
-            phaseName: {
-                type: String
-            },
-            description: {
-                type: String
-            },
-            duration: {
-                type: Number
-            },
-        }],
-        activity: {
+        phases: [{
             type: Schema.Types.ObjectId,
-            ref: 'Activity',
+            ref: 'Phase',
             autopopulate: true
-        }
+        }]
     },
     {
         versionKey: false,
