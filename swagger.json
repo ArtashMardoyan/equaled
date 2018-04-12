@@ -688,12 +688,15 @@
               },
               "duration": {
                 "type": "string"
+              },
+              "activity": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Activity"
+                }
               }
             }
           }
-        },
-        "activity": {
-          "$ref": "#/definitions/Activity"
         }
       }
     },
@@ -744,7 +747,7 @@
         "thumbnail": {
           "type": "string"
         },
-        "modality":{
+        "modality": {
           "type": "string",
           "enum": [
             "whole_class",
@@ -909,6 +912,5 @@
         }
       }
     }
-
   }
 }
