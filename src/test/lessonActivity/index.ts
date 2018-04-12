@@ -38,8 +38,8 @@ describe('LessonActivity', () => {
     describe('/POST lessonActivity', () => {
         it('it should not POST a lessonActivity without activityId pages', (done) => {
             const lessonActivity = {
-                "lessonId": "5ac68569353c8c6e28337635",
-                "phaseTitle":"test"
+                'lessonId': '5ac68569353c8c6e28337635',
+                'phaseTitle': 'test'
             };
             chai.request(server)
                 .post('/api/lessonActivities')
@@ -56,9 +56,9 @@ describe('LessonActivity', () => {
 
         it('it should POST a activity ', (done) => {
             const lessonActivity = {
-                "activityId": "5ac68e2ae7aeb475b9b829d9",
-                "lessonId": "5ac68569353c8c6e28337639",
-                "phaseTitle":"test"
+                'activityId': '5ac68e2ae7aeb475b9b829d9',
+                'lessonId': '5ac68569353c8c6e28337639',
+                'phaseTitle': 'test'
             };
             chai.request(server)
                 .post('/api/lessonActivities')
@@ -77,24 +77,21 @@ describe('LessonActivity', () => {
 
     describe('/PUT/:id lessonActivity', () => {
         it('it should UPDATE a lessonActivity given the id', (done) => {
-            const lessonActivity = new LessonActivity({
-                "activityId": "5ac68e2ae7aeb475b9b829d5",
-                "lessonId": "5ac68569353c8c6e28337635",
-                "phaseTitle":"test2"
-            });
+            let data = {
+                'activityId': '5ac68e2ae7aeb475b9b829d5',
+                'lessonId': '5ac68569353c8c6e28337635',
+                'phaseTitle': 'updated'
+            };
+            const lessonActivity = new LessonActivity(data);
             lessonActivity.save((err, lessonActivity) => {
                 chai.request(server)
                     .put('/api/lessonActivities/' + lessonActivity.id)
-                    .send({
-                        "activityId": "5ac68e2ae7aeb475b9b829d5",
-                        "lessonId": "5ac68569353c8c6e28337635",
-                        "phaseTitle":"test3"
-                    })
+                    .send(data)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('name').eql('Ok');
-                        res.body.data.should.have.property('phaseTitle').eql('test3');
+                        res.body.data.should.have.property('phaseTitle').eql('updated');
                         done();
                     });
             });
@@ -104,9 +101,9 @@ describe('LessonActivity', () => {
     describe('/DELETE/:id lessonActivity', () => {
         it('it should DELETE a lessonActivity given the id', (done) => {
             const lessonActivity = new LessonActivity({
-                "activityId": "5ac68e2ae7aeb475b9b829d5",
-                "lessonId": "5ac68569353c8c6e28337635",
-                "phaseTitle":"test3"
+                'activityId': '5ac68e2ae7aeb475b9b829d5',
+                'lessonId': '5ac68569353c8c6e28337635',
+                'phaseTitle': 'test3'
             });
             lessonActivity.save((err, lessonActivity) => {
                 chai.request(server)

@@ -38,13 +38,25 @@ describe('Lesson', () => {
     describe('/POST lesson', () => {
         it('it should not POST a lesson without title overview pages', (done) => {
             const lesson = {
-                approach: 'test',
-                checklist: {
-                    equipment: 'test',
-                    printOuts: 'test',
-                    instructions: 'test'
-                }
+                'hasCheckList': true,
+                'checklist': {
+                    'equipment': 'test',
+                    'printOuts': 'test',
+                    'instructions': 'test'
+                },
+                'backgroundInfo': {
+                    'approach': 'test',
+                    'content': 'test',
+                    'standards': ['test', 'test', 'test'],
+                    'competencies': ['test', 'test', 'test']
+                },
+                'lessonPhases': [{
+                    'phaseName': 'test',
+                    'description': 'test',
+                    'duration': 12
+                }]
             };
+
             chai.request(server)
                 .post('/api/lessons')
                 .send(lesson)
@@ -60,14 +72,25 @@ describe('Lesson', () => {
 
         it('it should POST a lesson ', (done) => {
             const lesson = {
-                title: 'The Lord of the Rings',
-                overview: 'J.R.R. Tolkien',
-                approach: 'test',
-                checklist: {
-                    equipment: 'test',
-                    printOuts: 'test',
-                    instructions: 'test'
-                }
+                'title': 'test',
+                'overview': 'test',
+                'hasCheckList': true,
+                'checklist': {
+                    'equipment': 'test',
+                    'printOuts': 'test',
+                    'instructions': 'test'
+                },
+                'backgroundInfo': {
+                    'approach': 'test',
+                    'content': 'test',
+                    'standards': ['test', 'test', 'test'],
+                    'competencies': ['test', 'test', 'test']
+                },
+                'lessonPhases': [{
+                    'phaseName': 'test',
+                    'description': 'test',
+                    'duration': 12
+                }]
             };
             chai.request(server)
                 .post('/api/lessons')
@@ -76,10 +99,12 @@ describe('Lesson', () => {
                     res.should.have.status(201);
                     res.body.should.be.a('object');
                     res.body.should.have.property('name').eql('Created');
-                    res.body.data.should.have.property('title');
-                    res.body.data.should.have.property('overview');
-                    res.body.data.should.have.property('approach');
+                    res.body.data.should.have.property('backgroundInfo');
+                    res.body.data.should.have.property('hasCheckList');
+                    res.body.data.should.have.property('lessonPhases');
                     res.body.data.should.have.property('checklist');
+                    res.body.data.should.have.property('overview');
+                    res.body.data.should.have.property('title');
                     done();
                 });
         });
@@ -87,34 +112,38 @@ describe('Lesson', () => {
 
     describe('/PUT/:id lesson', () => {
         it('it should UPDATE a lesson given the id', (done) => {
-            const lesson = new Lesson({
-                title: 'The Lord of the Rings',
-                overview: 'J.R.R. Tolkien',
-                approach: 'updated',
-                checklist: {
-                    equipment: 'updated',
-                    printOuts: 'updated',
-                    instructions: 'updated'
-                }
-            });
+            let data = {
+                'title': 'updated',
+                'overview': 'test',
+                'hasCheckList': true,
+                'checklist': {
+                    'equipment': 'test',
+                    'printOuts': 'test',
+                    'instructions': 'test'
+                },
+                'backgroundInfo': {
+                    'approach': 'test',
+                    'content': 'test',
+                    'standards': ['test', 'test', 'test'],
+                    'competencies': ['test', 'test', 'test']
+                },
+                'lessonPhases': [{
+                    'phaseName': 'test',
+                    'description': 'test',
+                    'duration': 12
+                }],
+                'activity': '5ace55b6ea8a4d488b332a4a'
+            };
+            const lesson = new Lesson(data);
             lesson.save((err, lesson) => {
                 chai.request(server)
                     .put('/api/lessons/' + lesson.id)
-                    .send({
-                        title: 'The Lord of the Rings',
-                        overview: 'J.R.R. Tolkien',
-                        approach: 'updated',
-                        checklist: {
-                            equipment: 'test',
-                            printOuts: 'test',
-                            instructions: 'test'
-                        }
-                    })
+                    .send(data)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('name').eql('Ok');
-                        res.body.data.should.have.property('approach').eql('updated');
+                        res.body.data.should.have.property('title').eql('updated');
                         done();
                     });
             });
@@ -124,14 +153,26 @@ describe('Lesson', () => {
     describe('/DELETE/:id lesson', () => {
         it('it should DELETE a lesson given the id', (done) => {
             const lesson = new Lesson({
-                title: 'The Lord of the Rings',
-                overview: 'J.R.R. Tolkien',
-                approach: 'test',
-                checklist: {
-                    equipment: 'test',
-                    printOuts: 'test',
-                    instructions: 'test'
-                }
+                'title': 'test',
+                'overview': 'test',
+                'hasCheckList': true,
+                'checklist': {
+                    'equipment': 'test',
+                    'printOuts': 'test',
+                    'instructions': 'test'
+                },
+                'backgroundInfo': {
+                    'approach': 'test',
+                    'content': 'test',
+                    'standards': ['test', 'test', 'test'],
+                    'competencies': ['test', 'test', 'test']
+                },
+                'lessonPhases': [{
+                    'phaseName': 'test',
+                    'description': 'test',
+                    'duration': 12
+                }],
+                'activity': '5ace55b6ea8a4d488b332a4a'
             });
             lesson.save((err, lesson) => {
                 chai.request(server)
