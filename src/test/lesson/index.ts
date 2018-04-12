@@ -38,23 +38,18 @@ describe('Lesson', () => {
     describe('/POST lesson', () => {
         it('it should not POST a lesson without title overview pages', (done) => {
             const lesson = {
-                'hasCheckList': true,
-                'checklist': {
-                    'equipment': 'test',
-                    'printOuts': 'test',
-                    'instructions': 'test'
+                hasCheckList: true,
+                checklist: {
+                    equipment: 'test',
+                    printOuts: 'test',
+                    instructions: 'test'
                 },
-                'backgroundInfo': {
-                    'approach': 'test',
-                    'content': 'test',
-                    'standards': ['test', 'test', 'test'],
-                    'competencies': ['test', 'test', 'test']
-                },
-                'lessonPhases': [{
-                    'phaseName': 'test',
-                    'description': 'test',
-                    'duration': 12
-                }]
+                backgroundInfo: {
+                    approach: 'test',
+                    content: 'test',
+                    standards: ['test', 'test', 'test'],
+                    competencies: ['test', 'test', 'test']
+                }
             };
 
             chai.request(server)
@@ -72,25 +67,20 @@ describe('Lesson', () => {
 
         it('it should POST a lesson ', (done) => {
             const lesson = {
-                'title': 'test',
-                'overview': 'test',
-                'hasCheckList': true,
-                'checklist': {
-                    'equipment': 'test',
-                    'printOuts': 'test',
-                    'instructions': 'test'
+                title: 'test',
+                overview: 'test',
+                hasCheckList: true,
+                checklist: {
+                    equipment: 'test',
+                    printOuts: 'test',
+                    instructions: 'test'
                 },
-                'backgroundInfo': {
-                    'approach': 'test',
-                    'content': 'test',
-                    'standards': ['test', 'test', 'test'],
-                    'competencies': ['test', 'test', 'test']
-                },
-                'lessonPhases': [{
-                    'phaseName': 'test',
-                    'description': 'test',
-                    'duration': 12
-                }]
+                backgroundInfo: {
+                    approach: 'test',
+                    content: 'test',
+                    standards: ['test', 'test', 'test'],
+                    competencies: ['test', 'test', 'test']
+                }
             };
             chai.request(server)
                 .post('/api/lessons')
@@ -101,7 +91,6 @@ describe('Lesson', () => {
                     res.body.should.have.property('name').eql('Created');
                     res.body.data.should.have.property('backgroundInfo');
                     res.body.data.should.have.property('hasCheckList');
-                    res.body.data.should.have.property('lessonPhases');
                     res.body.data.should.have.property('checklist');
                     res.body.data.should.have.property('overview');
                     res.body.data.should.have.property('title');
@@ -112,27 +101,22 @@ describe('Lesson', () => {
 
     describe('/PUT/:id lesson', () => {
         it('it should UPDATE a lesson given the id', (done) => {
-            let data = {
-                'title': 'updated',
-                'overview': 'test',
-                'hasCheckList': true,
-                'checklist': {
-                    'equipment': 'test',
-                    'printOuts': 'test',
-                    'instructions': 'test'
+            const data = {
+                title: 'updated',
+                overview: 'test',
+                hasCheckList: true,
+                checklist: {
+                    equipment: 'test',
+                    printOuts: 'test',
+                    instructions: 'test'
                 },
-                'backgroundInfo': {
-                    'approach': 'test',
-                    'content': 'test',
-                    'standards': ['test', 'test', 'test'],
-                    'competencies': ['test', 'test', 'test']
+                backgroundInfo: {
+                    approach: 'test',
+                    content: 'test',
+                    standards: ['test', 'test', 'test'],
+                    competencies: ['test', 'test', 'test']
                 },
-                'lessonPhases': [{
-                    'phaseName': 'test',
-                    'description': 'test',
-                    'duration': 12
-                }],
-                'activity': '5ace55b6ea8a4d488b332a4a'
+                phases: ['5ace55b6ea8a4d488b332a4a']
             };
             const lesson = new Lesson(data);
             lesson.save((err, lesson) => {
@@ -153,26 +137,21 @@ describe('Lesson', () => {
     describe('/DELETE/:id lesson', () => {
         it('it should DELETE a lesson given the id', (done) => {
             const lesson = new Lesson({
-                'title': 'test',
-                'overview': 'test',
-                'hasCheckList': true,
-                'checklist': {
-                    'equipment': 'test',
-                    'printOuts': 'test',
-                    'instructions': 'test'
+                title: 'test',
+                overview: 'test',
+                hasCheckList: true,
+                checklist: {
+                    equipment: 'test',
+                    printOuts: 'test',
+                    instructions: 'test'
                 },
-                'backgroundInfo': {
-                    'approach': 'test',
-                    'content': 'test',
-                    'standards': ['test', 'test', 'test'],
-                    'competencies': ['test', 'test', 'test']
+                backgroundInfo: {
+                    approach: 'test',
+                    content: 'test',
+                    standards: ['test', 'test', 'test'],
+                    competencies: ['test', 'test', 'test']
                 },
-                'lessonPhases': [{
-                    'phaseName': 'test',
-                    'description': 'test',
-                    'duration': 12
-                }],
-                'activity': '5ace55b6ea8a4d488b332a4a'
+                activity: ['5ace55b6ea8a4d488b332a4a']
             });
             lesson.save((err, lesson) => {
                 chai.request(server)

@@ -5,7 +5,7 @@ process.env.NODE_ENV = 'test';
 
 import * as chaiHttp from 'chai-http';
 
-import Modality from './../../models/Modality';
+import Phase from './../../models/Phase';
 import server from './../../server';
 
 const chai = require('chai');
@@ -13,19 +13,19 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Modality', () => {
+describe('Phase', () => {
     beforeEach((done) => { // Before each test we empty the database
-        Modality.remove({}, (err) => {
+        Phase.remove({}, (err) => {
             done();
         });
     });
     /*
       * Test the /GET route
       */
-    describe('/GET modality', () => {
-        it('it should GET all the modality', (done) => {
+    describe('/GET phase', () => {
+        it('it should GET all the phase', (done) => {
             chai.request(server)
-                .get('/api/modalities')
+                .get('/api/phases')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.data.docs.should.be.a('array');
@@ -35,16 +35,16 @@ describe('Modality', () => {
         });
     });
 
-    describe('/POST modality', () => {
-        it('it should not POST a modality without say page', (done) => {
-            const modality = {
-                type: 'groups',
-                ask: 'test',
-                discuss: 'test'
+    describe('/POST phase', () => {
+        it('it should not POST a phase without name page', (done) => {
+            const phase = {
+                description: 'test',
+                duration: 123,
+                activities: ['5ace55b6ea8a4d488b332a4a']
             };
             chai.request(server)
-                .post('/api/modalities')
-                .send(modality)
+                .post('/api/phases')
+                .send(phase)
                 .end((err, res) => {
                     res.should.have.status(422);
                     res.body.should.be.a('object');
@@ -55,64 +55,64 @@ describe('Modality', () => {
                 });
         });
 
-        it('it should POST a modality ', (done) => {
-            const modality = {
-                type: 'groups',
-                say: 'test',
-                ask: 'test',
-                discuss: 'test'
+        it('it should POST a phase ', (done) => {
+            const phase = {
+                name: 'test',
+                description: 'test',
+                duration: 123,
+                activities: ['5ace55b6ea8a4d488b332a4a']
             };
             chai.request(server)
-                .post('/api/modalities')
-                .send(modality)
+                .post('/api/phases')
+                .send(phase)
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.should.be.a('object');
                     res.body.should.have.property('name').eql('Created');
-                    res.body.data.should.have.property('type');
-                    res.body.data.should.have.property('say');
-                    res.body.data.should.have.property('ask');
-                    res.body.data.should.have.property('discuss');
+                    res.body.data.should.have.property('name');
+                    res.body.data.should.have.property('description');
+                    res.body.data.should.have.property('duration');
+                    res.body.data.should.have.property('activities');
                     done();
                 });
         });
     });
 
-    describe('/PUT/:id modality', () => {
-        it('it should UPDATE a modality given the id', (done) => {
+    describe('/PUT/:id phase', () => {
+        it('it should UPDATE a phase given the id', (done) => {
             const data = {
-                type: 'individual',
-                say: 'test',
-                ask: 'test',
-                discuss: 'test'
+                name: 'test',
+                description: 'test',
+                duration: 123,
+                activities: ['5ace55b6ea8a4d488b332a4a']
             };
-            const modality = new Modality(data);
-            modality.save((err, modality) => {
+            const phase = new Phase(data);
+            phase.save((err, phase) => {
                 chai.request(server)
-                    .put('/api/modalities/' + modality.id)
+                    .put('/api/phases/' + phase.id)
                     .send(data)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('name').eql('Ok');
-                        res.body.data.should.have.property('type').eql('individual');
+                        res.body.data.should.have.property('name').eql('test');
                         done();
                     });
             });
         });
     });
 
-    describe('/DELETE/:id modality', () => {
-        it('it should DELETE a modality given the id', (done) => {
-            const modality = new Modality({
-                type: 'whole_class',
-                say: 'test',
-                ask: 'test',
-                discuss: 'test'
+    describe('/DELETE/:id phase', () => {
+        it('it should DELETE a phase given the id', (done) => {
+            const phase = new Phase({
+                name: 'test',
+                description: 'test',
+                duration: 123,
+                activities: ['5ace55b6ea8a4d488b332a4a']
             });
-            modality.save((err, modality) => {
+            phase.save((err, phase) => {
                 chai.request(server)
-                    .delete('/api/modalities/' + modality.id)
+                    .delete('/api/phases/' + phase.id)
                     .end((err, res) => {
                         res.should.have.status(204);
                         res.body.should.be.a('object');

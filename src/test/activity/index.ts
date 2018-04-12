@@ -38,14 +38,14 @@ describe('Activity', () => {
     describe('/POST activities', () => {
         it('it should not POST a activity without title shortDescription pages', (done) => {
             const activity = {
-                'objectives': 'test',
-                'duration': 12345,
-                'competencies': 'test',
-                'templateType': 'content',
-                'type': 'test',
-                'thumbnail': 'test',
-                'modality': 'groups',
-                'activitySteps': ['5ace571b667d5d4ae7f22d6c']
+                objectives: 'test',
+                duration: 12345,
+                competencies: 'test',
+                templateType: 'content',
+                type: 'test',
+                thumbnail: 'test',
+                modality: 'pairs',
+                activitySteps: ['5ace571b667d5d4ae7f22d6c']
             };
             chai.request(server)
                 .post('/api/activities')
@@ -62,16 +62,16 @@ describe('Activity', () => {
 
         it('it should POST a activity ', (done) => {
             const activity = {
-                'title': 'test',
-                'shortDescription': 'test',
-                'objectives': 'test',
-                'duration': 12345,
-                'competencies': 'test',
-                'templateType': 'content',
-                'type': 'test',
-                'thumbnail': 'test',
-                'modality': 'groups',
-                'activitySteps': ['5ace571b667d5d4ae7f22d6c']
+                title: 'test',
+                shortDescription: 'test',
+                objectives: 'test',
+                duration: 12345,
+                competencies: 'test',
+                templateType: 'content',
+                type: 'test',
+                thumbnail: 'test',
+                modality: 'pairs',
+                activitySteps: ['5ace571b667d5d4ae7f22d6c']
             };
             chai.request(server)
                 .post('/api/activities')
@@ -96,17 +96,17 @@ describe('Activity', () => {
 
     describe('/PUT/:id activity', () => {
         it('it should UPDATE a activity given the id', (done) => {
-            let data = {
-                'title': 'test',
-                'shortDescription': 'test',
-                'objectives': 'test',
-                'duration': 12345,
-                'competencies': 'test',
-                'templateType': 'content',
-                'type': 'test',
-                'thumbnail': 'test',
-                'modality': 'pairs',
-                'activitySteps': ['5ace571b667d5d4ae7f22d6c']
+            const data = {
+                title: 'test',
+                shortDescription: 'test',
+                objectives: 'test',
+                duration: 12345,
+                competencies: 'test',
+                templateType: 'content',
+                type: 'test',
+                thumbnail: 'test',
+                modality: 'pairs',
+                activitySteps: ['5ace571b667d5d4ae7f22d6c']
             };
             const activity = new Activity(data);
             activity.save((err, activity) => {
@@ -127,16 +127,16 @@ describe('Activity', () => {
     describe('/DELETE/:id activity', () => {
         it('it should DELETE a activity given the id', (done) => {
             const activity = new Activity({
-                'title': 'test',
-                'shortDescription': 'test',
-                'objectives': 'test',
-                'duration': 12345,
-                'competencies': 'test',
-                'templateType': 'content',
-                'type': 'test',
-                'thumbnail': 'test',
-                'modality': 'groups',
-                'activitySteps': ['5ace571b667d5d4ae7f22d6c']
+                title: 'test',
+                shortDescription: 'test',
+                objectives: 'test',
+                duration: 12345,
+                competencies: 'test',
+                templateType: 'content',
+                type: 'test',
+                thumbnail: 'test',
+                modality: 'pairs',
+                activitySteps: ['5ace571b667d5d4ae7f22d6c']
             });
             activity.save((err, activity) => {
                 chai.request(server)
