@@ -54,7 +54,13 @@ describe('ActivityStep', () => {
                 answers: '12345',
                 vocabularyWords: 'test',
                 skills: 'test',
-                vocabularyRef: 345
+                vocabularyRef: 345,
+                teacherGuide: {
+                    phase: 'test1',
+                    duration: 10,
+                    additionalInfo: 'test',
+                    commonQuestions: ['test']
+                }
             };
             chai.request(server)
                 .post('/api/activityStep')
@@ -88,7 +94,13 @@ describe('ActivityStep', () => {
                 answers: '12345',
                 vocabularyWords: 'test',
                 skills: 'test',
-                vocabularyRef: 345
+                vocabularyRef: 345,
+                teacherGuide: {
+                    phase: 'test1',
+                    duration: 10,
+                    additionalInfo: 'test',
+                    commonQuestions: ['test']
+                }
             };
             chai.request(server)
                 .post('/api/activityStep')
@@ -103,6 +115,7 @@ describe('ActivityStep', () => {
                     res.body.data.should.have.property('vocabularyWords');
                     res.body.data.should.have.property('misconceptions');
                     res.body.data.should.have.property('vocabularyRef');
+                    res.body.data.should.have.property('teacherGuide');
                     res.body.data.should.have.property('teacherTips');
                     res.body.data.should.have.property('contentRef');
                     res.body.data.should.have.property('questions');
@@ -136,7 +149,13 @@ describe('ActivityStep', () => {
                 answers: '12345',
                 vocabularyWords: 'test',
                 skills: 'test',
-                vocabularyRef: 123
+                vocabularyRef: 123,
+                teacherGuide: {
+                    phase: 'test1',
+                    duration: 10,
+                    additionalInfo: 'test',
+                    commonQuestions: ['test']
+                }
             };
             const activityStep = new ActivityStep(data);
             activityStep.save((err, activityStep) => {
@@ -174,7 +193,13 @@ describe('ActivityStep', () => {
                 answers: '12345',
                 vocabularyWords: 'test',
                 skills: 'test',
-                vocabularyRef: 123
+                vocabularyRef: 123,
+                teacherGuide: {
+                    phase: 'test1',
+                    duration: 10,
+                    additionalInfo: 'test',
+                    commonQuestions: ['test']
+                }
             });
             activityStep.save((err, activityStep) => {
                 chai.request(server)

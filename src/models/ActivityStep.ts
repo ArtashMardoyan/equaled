@@ -62,7 +62,23 @@ const activityStepSchema: Schema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Modality',
             autopopulate: true
-        }]
+        }],
+        teacherGuide: {
+            phase: {
+                type: String,
+                required: true,
+                enum: ['test1', 'test2', 'test3', 'test4']
+            },
+            duration: {
+                type: Number,
+            },
+            additionalInfo: {
+                type: String
+            },
+            commonQuestions: [{
+                    type:String
+                }]
+        }
     },
     {
         versionKey: false,

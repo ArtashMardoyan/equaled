@@ -26,7 +26,8 @@ class ActivitiesController {
         try {
             const result = _.pick(req.body, 'title', 'intro',
                 'studentInstruction', 'type', 'contentRef', 'defaultModality', 'alternativeModality',
-                'teacherTips', 'misconceptions', 'questions', 'answers', 'vocabularyWords', 'skills', 'vocabularyRef');
+                'teacherTips', 'misconceptions', 'questions', 'answers', 'vocabularyWords', 'skills',
+                'vocabularyRef','teacherGuide');
 
             return ActivityStep.create(result)
                 .then((data) => MagicResponse.created(res, data))
@@ -46,7 +47,8 @@ class ActivitiesController {
 
                     const result = _.pick(req.body, 'title', 'intro',
                         'studentInstruction', 'type', 'contentRef', 'defaultModality', 'alternativeModality',
-                        'teacherTips', 'misconceptions', 'questions', 'answers', 'vocabularyWords', 'skills', 'vocabularyRef');
+                        'teacherTips', 'misconceptions', 'questions', 'answers', 'vocabularyWords', 'skills',
+                        'vocabularyRef','teacherGuide');
 
                     _.assign(activityStep, result);
 
