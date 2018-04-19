@@ -11,13 +11,13 @@ config.file({file: path.join(__dirname, appMode, 'main.json')});
 config.add('common', {type: 'file', file: path.join(__dirname, 'common', 'main.json')});
 
 config.set('params', {
-    ...require(path.join(__dirname, 'common', 'params')),
-    ...require(path.join(__dirname, appMode, 'params'))
+  ...require(path.join(__dirname, 'common', 'params')),
+  ...require(path.join(__dirname, appMode, 'params'))
 });
 
 config.defaults({
-    SERVER_PORT: 3001,
-    NODE_ENV: 'development'
+  SERVER_PORT: 3001,
+  NODE_ENV: 'development'
 });
 
 config.required([]);

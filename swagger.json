@@ -113,6 +113,23 @@
           "type": "string"
         }
       ],
+      "get": {
+        "tags": [
+          "Lessons"
+        ],
+        "summary": "Get Lesson by Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Lesson"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Lessons"
@@ -228,6 +245,23 @@
           "type": "string"
         }
       ],
+      "get": {
+        "tags": [
+          "Phases"
+        ],
+        "summary": "Get Phase by Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Phase"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Phases"
@@ -343,6 +377,23 @@
           "type": "string"
         }
       ],
+      "get": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Get Activity by Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Activity"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Activities"
@@ -458,6 +509,23 @@
           "type": "string"
         }
       ],
+      "get": {
+        "tags": [
+          "ActivityStep"
+        ],
+        "summary": "Get ActivityStep by Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
       "put": {
         "tags": [
           "ActivityStep"
@@ -573,6 +641,23 @@
           "type": "string"
         }
       ],
+      "get": {
+        "tags": [
+          "Modalities"
+        ],
+        "summary": "Get Modality by Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Modality"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Modalities"
@@ -979,6 +1064,40 @@
         },
         "vocabularyRef": {
           "type": "string"
+        },
+        "teacherGuide": {
+          "type": "object",
+          "properties": {
+            "phase": {
+              "type": "string",
+              "enum": [
+                "test1",
+                "test2",
+                "test3",
+                "test4"
+              ]
+            },
+            "duration": {
+              "type": "number"
+            },
+            "additionalInfo": {
+              "type": "string"
+            },
+            "commonQuestions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "contentType": {
+          "type": "string",
+          "enum": [
+            "video",
+            "image",
+            "html"
+          ]
         }
       }
     },
