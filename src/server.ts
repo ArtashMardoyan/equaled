@@ -2,6 +2,7 @@
 
 import * as cors from 'cors';
 import * as path from 'path';
+import * as yaml from 'yamljs';
 import * as helmet from 'helmet';
 import * as logger from 'morgan';
 import * as express from 'express';
@@ -11,7 +12,7 @@ import * as compression from 'compression';
 import * as paginate from 'express-paginate';
 import * as cookieParser from 'cookie-parser';
 import * as autoRoute from 'express-autoroute';
-import * as swaggerUI from 'swagger-ui-express';
+import * as swaggerUi from 'swagger-ui-express';
 
 import NotFoundHttpException from './framework/errorResolver/exceptions/NotFoundHttpException';
 import errorResolver from './framework/errorResolver';
@@ -34,7 +35,7 @@ class Server {
     mongoose.connect(MONGO_URI || process.env.MONGODB_URI);
 
     this.app.use(paginate.middleware(config.get('response:limit:default'), config.get('response:limit:max')));
-    this.app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(require('./../swagger.json')));
+    this.app.use('/api/docs', swaggerUi.serve, swaggerUi.setup( yaml.load('./swagger.yaml')));
     this.app.use(bodyParser.urlencoded({extended: true}));
     this.app.use(bodyParser.json());
     this.app.use(cookieParser());

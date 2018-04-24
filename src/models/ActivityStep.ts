@@ -8,7 +8,7 @@ const activityStepSchema: Schema = new Schema({
         type: String,
         required: true
       },
-      intro: {
+      shortDescription: {
         type: String,
         required: true,
       },
@@ -29,15 +29,11 @@ const activityStepSchema: Schema = new Schema({
         type: Number,
         required: true
       }],
-      misconceptions: [{
+      commonMisconceptions: [{
         type: String,
         required: true
       }],
-      questions: [{
-        type: String,
-        required: true
-      }],
-      answers: [{
+      commonQuestions: [{
         type: String,
         required: true
       }],
@@ -49,39 +45,35 @@ const activityStepSchema: Schema = new Schema({
         type: String,
         required: true
       }],
-      vocabularyRef: {
+      phase: {
         type: String,
-        required: true
+        required: true,
+        enum: ['test1', 'test2', 'test3', 'test4']
       },
-      defaultModality: {
+      duration: {
+        type: Number,
+      },
+      additionalInfo: {
+        type: String
+      },
+      contentType: {
+        type: String,
+        enum: ['video', 'image', 'html']
+      },
+      defaultModality: [{
         type: Schema.Types.ObjectId,
         ref: 'Modality',
         autopopulate: true
-      },
+      }],
       alternativeModality: [{
         type: Schema.Types.ObjectId,
         ref: 'Modality',
         autopopulate: true
       }],
-      teacherGuide: {
-        phase: {
-          type: String,
-          required: true,
-          enum: ['test1', 'test2', 'test3', 'test4']
-        },
-        duration: {
-          type: Number,
-        },
-        additionalInfo: {
-          type: String
-        },
-        commonQuestions: [{
-          type: String
-        }]
-      },
-      contentType: {
-        type: String,
-        enum: ['video', 'image', 'html']
+      vocabulary: {
+        type: Schema.Types.ObjectId,
+        ref: 'Vocabulary',
+        autopopulate: true
       }
     },
     {

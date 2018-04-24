@@ -13,7 +13,7 @@ class ActivitiesController {
       ActivityStep.paginate({}, {
         page: req.query.page,
         limit: req.query.limit,
-        populate: ['alternativeModality', 'defaultModality']
+        populate: ['vocabulary', 'alternativeModality', 'defaultModality']
       })
           .then((activitySteps) => MagicResponse.ok(res, activitySteps))
           .catch(() => MagicResponse.internalServer(res));
@@ -27,7 +27,7 @@ class ActivitiesController {
       ActivityStep.findOne({
         _id: req.params.id
       })
-          .populate(['defaultModality', 'alternativeModality'])
+          .populate(['vocabulary', 'defaultModality', 'alternativeModality'])
           .then((activityStep) => {
             if (_.isEmpty(activityStep)) {
               return MagicResponse.notFound(res);
@@ -43,10 +43,24 @@ class ActivitiesController {
 
   public actionCreate(req: Request, res: Response): any {
     try {
-      const result = _.pick(req.body, 'title', 'intro',
-          'studentInstruction', 'type', 'contentRef', 'defaultModality', 'alternativeModality',
-          'teacherTips', 'misconceptions', 'questions', 'answers', 'vocabularyWords', 'skills',
-          'vocabularyRef', 'teacherGuide', 'contentType');
+      const result = _.pick(req.body,
+          'title',
+          'shortDescription',
+          'studentInstruction',
+          'type',
+          'contentRef',
+          'defaultModality',
+          'alternativeModality',
+          'teacherTips',
+          'commonMisconceptions',
+          'commonQuestions',
+          'vocabularyWords',
+          'skills',
+          'vocabulary',
+          'phase',
+          'duration',
+          'additionalInfo',
+          'contentType');
 
       return ActivityStep.create(result)
           .then((data) => MagicResponse.created(res, data))
@@ -64,10 +78,24 @@ class ActivitiesController {
               return MagicResponse.notFound(res);
             }
 
-            const result = _.pick(req.body, 'title', 'intro',
-                'studentInstruction', 'type', 'contentRef', 'defaultModality', 'alternativeModality',
-                'teacherTips', 'misconceptions', 'questions', 'answers', 'vocabularyWords', 'skills',
-                'vocabularyRef', 'teacherGuide', 'contentType');
+            const result = _.pick(req.body,
+                'title',
+                'shortDescription',
+                'studentInstruction',
+                'type',
+                'contentRef',
+                'defaultModality',
+                'alternativeModality',
+                'teacherTips',
+                'commonMisconceptions',
+                'commonQuestions',
+                'vocabularyWords',
+                'skills',
+                'vocabulary',
+                'phase',
+                'duration',
+                'additionalInfo',
+                'contentType');
 
             _.assign(activityStep, result);
 

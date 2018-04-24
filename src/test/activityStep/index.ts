@@ -1,8 +1,6 @@
 ///<reference path="../../../node_modules/@types/mocha/index.d.ts"/>
 'use strict';
 
-import Activity from '../../models/Activity';
-
 process.env.NODE_ENV = 'test';
 
 import * as chaiHttp from 'chai-http';
@@ -40,31 +38,23 @@ describe('ActivityStep', () => {
   describe('/GET/:id activityStep', () => {
     it('it should GET a activityStep by the given id', (done) => {
       let activityStep = new ActivityStep({
-        title: 'updated',
-        intro: 'test1',
-        studentInstruction: 'test1',
+        title: 'test',
+        shortDescription: 'test',
+        studentInstruction: 'test',
         type: 'slide',
         contentRef: 'test',
-        defaultModality: {
-          _id: '5ac8fda5c8f1f72190e53bbe'
-        },
-        alternativeModality: {
-          _id: '5ac8fda5c8f1f72190e53bbe'
-        },
-        teacherTips: [234, 567],
-        misconceptions: 'test',
-        questions: 'test',
-        answers: '12345',
-        vocabularyWords: 'test',
-        skills: 'test',
-        vocabularyRef: 123,
-        contentType: 'video',
-        teacherGuide: {
-          phase: 'test1',
-          duration: 10,
-          additionalInfo: 'test',
-          commonQuestions: ['test']
-        }
+        teacherTips: [123, 333, 555],
+        commonMisconceptions: ['test', 'test', 'test'],
+        commonQuestions: ['test', 'test', 'test'],
+        vocabularyWords: ['test', 'test', 'test'],
+        skills: ['test', 'test', 'test'],
+        phase: 'test1',
+        duration: 10,
+        additionalInfo: 'test',
+        contentType:'video',
+        defaultModality: [],
+        alternativeModality: [],
+        vocabulary: '5adf4bf19452172d25608256'
       });
       activityStep.save((err, activity) => {
         chai.request(server)
@@ -73,21 +63,23 @@ describe('ActivityStep', () => {
             .end((err, res) => {
               res.should.have.status(200);
               res.body.should.be.a('object');
+              res.body.data.should.have.property('title');
+              res.body.data.should.have.property('commonMisconceptions');
               res.body.data.should.have.property('alternativeModality');
               res.body.data.should.have.property('studentInstruction');
-              res.body.data.should.have.property('defaultModality');
+              res.body.data.should.have.property('shortDescription');
+              res.body.data.should.have.property('shortDescription');
+              res.body.data.should.have.property('commonQuestions');
               res.body.data.should.have.property('vocabularyWords');
-              res.body.data.should.have.property('misconceptions');
-              res.body.data.should.have.property('vocabularyRef');
-              res.body.data.should.have.property('teacherGuide');
-              res.body.data.should.have.property('contentType');
+              res.body.data.should.have.property('defaultModality');
+              res.body.data.should.have.property('additionalInfo');
               res.body.data.should.have.property('teacherTips');
+              res.body.data.should.have.property('contentType');
               res.body.data.should.have.property('contentRef');
-              res.body.data.should.have.property('questions');
-              res.body.data.should.have.property('answers');
+              res.body.data.should.have.property('vocabulary');
+              res.body.data.should.have.property('duration');
               res.body.data.should.have.property('skills');
-              res.body.data.should.have.property('intro');
-              res.body.data.should.have.property('title');
+              res.body.data.should.have.property('phase');
               res.body.data.should.have.property('type');
               res.body.data.should.have.property('_id').eql(activity.id);
               done();
@@ -99,30 +91,22 @@ describe('ActivityStep', () => {
   describe('/POST activityStep', () => {
     it('it should not POST a activityStep without title overview pages', (done) => {
       const activityStep = {
-        intro: 'test',
+        shortDescription: 'test',
         studentInstruction: 'test',
         type: 'slide',
         contentRef: 'test',
-        defaultModality: {
-          _id: '5ac8fda5c8f1f72190e53bbe'
-        },
-        alternativeModality: {
-          _id: '5ac8fda5c8f1f72190e53bbe'
-        },
-        teacherTips: [123, 123],
-        misconceptions: 'test',
-        questions: 'test',
-        answers: '12345',
-        vocabularyWords: 'test',
-        skills: 'test',
-        vocabularyRef: 345,
-        contentType: 'video',
-        teacherGuide: {
-          phase: 'test1',
-          duration: 10,
-          additionalInfo: 'test',
-          commonQuestions: ['test']
-        }
+        teacherTips: [123, 333, 555],
+        commonMisconceptions: ['test', 'test', 'test'],
+        commonQuestions: ['test', 'test', 'test'],
+        vocabularyWords: ['test', 'test', 'test'],
+        skills: ['test', 'test', 'test'],
+        phase: 'test1',
+        duration: 10,
+        additionalInfo: 'test',
+        contentType:'video',
+        defaultModality: [],
+        alternativeModality: [],
+        vocabulary: '5adf4bf19452172d25608256'
       };
       chai.request(server)
           .post('/api/activityStep')
@@ -140,30 +124,22 @@ describe('ActivityStep', () => {
     it('it should POST a activityStep ', (done) => {
       const activityStep = {
         title: 'test',
-        intro: 'test',
+        shortDescription: 'test',
         studentInstruction: 'test',
         type: 'slide',
         contentRef: 'test',
-        defaultModality: {
-          _id: '5ac8fda5c8f1f72190e53bbe'
-        },
-        alternativeModality: {
-          _id: '5ac8fda5c8f1f72190e53bbe'
-        },
-        teacherTips: [123, 123],
-        misconceptions: 'test',
-        questions: 'test',
-        answers: '12345',
-        vocabularyWords: 'test',
-        skills: 'test',
-        vocabularyRef: 345,
-        contentType: 'video',
-        teacherGuide: {
-          phase: 'test1',
-          duration: 10,
-          additionalInfo: 'test',
-          commonQuestions: ['test']
-        }
+        teacherTips: [123, 333, 555],
+        commonMisconceptions: ['test', 'test', 'test'],
+        commonQuestions: ['test', 'test', 'test'],
+        vocabularyWords: ['test', 'test', 'test'],
+        skills: ['test', 'test', 'test'],
+        phase: 'test1',
+        duration: 10,
+        additionalInfo: 'test',
+        contentType:'video',
+        defaultModality: [],
+        alternativeModality: [],
+        vocabulary: '5adf4bf19452172d25608256'
       };
       chai.request(server)
           .post('/api/activityStep')
@@ -172,21 +148,23 @@ describe('ActivityStep', () => {
             res.should.have.status(201);
             res.body.should.be.a('object');
             res.body.should.have.property('name').eql('Created');
+            res.body.data.should.have.property('commonMisconceptions');
             res.body.data.should.have.property('alternativeModality');
             res.body.data.should.have.property('studentInstruction');
-            res.body.data.should.have.property('defaultModality');
+            res.body.data.should.have.property('shortDescription');
+            res.body.data.should.have.property('shortDescription');
+            res.body.data.should.have.property('commonQuestions');
             res.body.data.should.have.property('vocabularyWords');
-            res.body.data.should.have.property('misconceptions');
-            res.body.data.should.have.property('vocabularyRef');
-            res.body.data.should.have.property('teacherGuide');
-            res.body.data.should.have.property('contentType');
+            res.body.data.should.have.property('defaultModality');
+            res.body.data.should.have.property('additionalInfo');
             res.body.data.should.have.property('teacherTips');
+            res.body.data.should.have.property('contentType');
             res.body.data.should.have.property('contentRef');
-            res.body.data.should.have.property('questions');
-            res.body.data.should.have.property('answers');
+            res.body.data.should.have.property('vocabulary');
+            res.body.data.should.have.property('duration');
             res.body.data.should.have.property('skills');
-            res.body.data.should.have.property('intro');
             res.body.data.should.have.property('title');
+            res.body.data.should.have.property('phase');
             res.body.data.should.have.property('type');
             done();
           });
@@ -197,30 +175,22 @@ describe('ActivityStep', () => {
     it('it should UPDATE a activityStep given the id', (done) => {
       const data = {
         title: 'updated',
-        intro: 'test1',
-        studentInstruction: 'test1',
+        shortDescription: 'test',
+        studentInstruction: 'test',
         type: 'slide',
         contentRef: 'test',
-        defaultModality: {
-          _id: '5ac8fda5c8f1f72190e53bbe'
-        },
-        alternativeModality: {
-          _id: '5ac8fda5c8f1f72190e53bbe'
-        },
-        teacherTips: [234, 567],
-        misconceptions: 'test',
-        questions: 'test',
-        answers: '12345',
-        vocabularyWords: 'test',
-        skills: 'test',
-        vocabularyRef: 123,
-        contentType: 'video',
-        teacherGuide: {
-          phase: 'test1',
-          duration: 10,
-          additionalInfo: 'test',
-          commonQuestions: ['test']
-        }
+        teacherTips: [123, 333, 555],
+        commonMisconceptions: ['test', 'test', 'test'],
+        commonQuestions: ['test', 'test', 'test'],
+        vocabularyWords: ['test', 'test', 'test'],
+        skills: ['test', 'test', 'test'],
+        phase: 'test1',
+        duration: 10,
+        additionalInfo: 'test',
+        contentType:'video',
+        defaultModality: [],
+        alternativeModality: [],
+        vocabulary: '5adf4bf19452172d25608256'
       };
       const activityStep = new ActivityStep(data);
       activityStep.save((err, activityStep) => {
@@ -241,31 +211,23 @@ describe('ActivityStep', () => {
   describe('/DELETE/:id activityStep', () => {
     it('it should DELETE a activityStep given the id', (done) => {
       const activityStep = new ActivityStep({
-        title: 'updated',
-        intro: 'updated',
-        studentInstruction: 'test1',
+        title: 'test',
+        shortDescription: 'test',
+        studentInstruction: 'test',
         type: 'slide',
         contentRef: 'test',
-        defaultModality: {
-          _id: '5ac8fda5c8f1f72190e53bbe'
-        },
-        alternativeModality: {
-          _id: '5ac8fda5c8f1f72190e53bbe'
-        },
-        teacherTips: [234, 567],
-        misconceptions: 'updated',
-        questions: 'test',
-        answers: '12345',
-        vocabularyWords: 'test',
-        skills: 'test',
-        vocabularyRef: 123,
-        contentType: 'video',
-        teacherGuide: {
-          phase: 'test1',
-          duration: 10,
-          additionalInfo: 'test',
-          commonQuestions: ['test']
-        }
+        teacherTips: [123, 333, 555],
+        commonMisconceptions: ['test', 'test', 'test'],
+        commonQuestions: ['test', 'test', 'test'],
+        vocabularyWords: ['test', 'test', 'test'],
+        skills: ['test', 'test', 'test'],
+        phase: 'test1',
+        duration: 10,
+        additionalInfo: 'test',
+        contentType:'video',
+        defaultModality: [],
+        alternativeModality: [],
+        vocabulary: '5adf4bf19452172d25608256'
       });
       activityStep.save((err, activityStep) => {
         chai.request(server)

@@ -97,7 +97,6 @@ class PhaseController {
 
   public actionDelete(req: Request, res: Response): any {
     try {
-      console.log(req.params.id);
       return Phase.findById(req.params.id)
           .then((phase) => {
             if (_.isEmpty(phase)) {
