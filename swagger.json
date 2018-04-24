@@ -13,8 +13,16 @@
       "description": "API for Lessons"
     },
     {
+      "name": "Phases",
+      "description": "API for Phases"
+    },
+    {
       "name": "Activities",
       "description": "API for Activities"
+    },
+    {
+      "name": "ActivityStep",
+      "description": "API for ActivityStep"
     },
     {
       "name": "Modalities",
@@ -23,10 +31,6 @@
     {
       "name": "LessonActivities",
       "description": "API for LessonActivities"
-    },
-    {
-      "name": "ActivityStep",
-      "description": "API for ActivityStep"
     }
   ],
   "schemes": [
@@ -109,6 +113,23 @@
           "type": "string"
         }
       ],
+      "get": {
+        "tags": [
+          "Lessons"
+        ],
+        "summary": "Get Lesson by Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Lesson"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Lessons"
@@ -118,7 +139,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "Lessson properties",
+            "description": "Lesson properties",
             "schema": {
               "$ref": "#/definitions/Lesson"
             }
@@ -144,6 +165,138 @@
           "Lessons"
         ],
         "summary": "Delete Lesson",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/phases": {
+      "get": {
+        "tags": [
+          "Phases"
+        ],
+        "summary": "Get all phases",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "type": "number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "max items per page",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Phase"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Phases"
+        ],
+        "summary": "Create Phase",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Phase properties",
+            "schema": {
+              "$ref": "#/definitions/Phase"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Phase"
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        }
+      }
+    },
+    "/phases/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of Phase",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Phases"
+        ],
+        "summary": "Get Phase by Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Phase"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Phases"
+        ],
+        "summary": "Update Phase",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Phase properties",
+            "schema": {
+              "$ref": "#/definitions/Phase"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Phase"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Phases"
+        ],
+        "summary": "Delete Phase",
         "responses": {
           "204": {
             "description": "No content"
@@ -224,6 +377,23 @@
           "type": "string"
         }
       ],
+      "get": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Get Activity by Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Activity"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Activities"
@@ -259,6 +429,138 @@
           "Activities"
         ],
         "summary": "Delete Activity",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/activityStep": {
+      "get": {
+        "tags": [
+          "ActivityStep"
+        ],
+        "summary": "Get all ActivityStep",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "type": "number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "max items per page",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ActivityStep"
+        ],
+        "summary": "Create ActivityStep",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "ActivityStep properties",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        }
+      }
+    },
+    "/activityStep/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of ActivityStep",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "ActivityStep"
+        ],
+        "summary": "Get ActivityStep by Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ActivityStep"
+        ],
+        "summary": "Update ActivityStep",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "ActivityStep properties",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ActivityStep"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ActivityStep"
+        ],
+        "summary": "Delete ActivityStep",
         "responses": {
           "204": {
             "description": "No content"
@@ -339,6 +641,23 @@
           "type": "string"
         }
       ],
+      "get": {
+        "tags": [
+          "Modalities"
+        ],
+        "summary": "Get Modality by Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Modality"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Modalities"
@@ -498,121 +817,6 @@
           }
         }
       }
-    },
-    "/activityStep": {
-      "get": {
-        "tags": [
-          "ActivityStep"
-        ],
-        "summary": "Get all ActivityStep",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "page number",
-            "type": "number"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "max items per page",
-            "type": "number"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ActivityStep"
-            }
-          },
-          "404": {
-            "description": "Not found"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "ActivityStep"
-        ],
-        "summary": "Create ActivityStep",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "ActivityStep properties",
-            "schema": {
-              "$ref": "#/definitions/ActivityStep"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created",
-            "schema": {
-              "$ref": "#/definitions/ActivityStep"
-            }
-          },
-          "422": {
-            "description": "Unprocessable entity"
-          }
-        }
-      }
-    },
-    "/activityStep/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "description": "ID of ActivityStep",
-          "type": "string"
-        }
-      ],
-      "put": {
-        "tags": [
-          "ActivityStep"
-        ],
-        "summary": "Update ActivityStep",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "ActivityStep properties",
-            "schema": {
-              "$ref": "#/definitions/ActivityStep"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ActivityStep"
-            }
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "422": {
-            "description": "Unprocessable entity"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "ActivityStep"
-        ],
-        "summary": "Delete ActivityStep",
-        "responses": {
-          "204": {
-            "description": "No content"
-          },
-          "404": {
-            "description": "Not found"
-          }
-        }
-      }
     }
   },
   "definitions": {
@@ -675,27 +879,34 @@
             }
           }
         },
-        "lessonPhases": {
+        "phases": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "phaseName": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              },
-              "duration": {
-                "type": "string"
-              },
-              "activity": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/Activity"
-                }
-              }
-            }
+            "$ref": "#/definitions/Phase"
+          }
+        }
+      }
+    },
+    "Phase": {
+      "required": [
+        "name",
+        "description",
+        "duration"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "number"
+        },
+        "activities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Activity"
           }
         }
       }
@@ -853,6 +1064,40 @@
         },
         "vocabularyRef": {
           "type": "string"
+        },
+        "teacherGuide": {
+          "type": "object",
+          "properties": {
+            "phase": {
+              "type": "string",
+              "enum": [
+                "test1",
+                "test2",
+                "test3",
+                "test4"
+              ]
+            },
+            "duration": {
+              "type": "number"
+            },
+            "additionalInfo": {
+              "type": "string"
+            },
+            "commonQuestions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "contentType": {
+          "type": "string",
+          "enum": [
+            "video",
+            "image",
+            "html"
+          ]
         }
       }
     },

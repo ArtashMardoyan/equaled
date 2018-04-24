@@ -4,36 +4,28 @@ import * as _ from 'underscore';
 import {Request, Response} from 'express';
 
 import MagicResponse from './../framework/magicResponse';
-import Modality from './../models/Modality';
+import Course from './../models/Course';
 
-class ModalitiesController {
+class CourseController {
 
   public actionIndex(req: Request, res: Response): any {
     try {
-      Modality.paginate({}, {
+      Course.paginate({}, {
         page: req.query.page,
         limit: req.query.limit
 
       })
-          .then((modalities) => MagicResponse.ok(res, modalities))
+          .then((course) => MagicResponse.ok(res, course))
           .catch(() => MagicResponse.internalServer(res));
     } catch (ex) {
       return MagicResponse.internalServer(res);
     }
   }
 
-  public actionView(req: Request, res: Response): any {
+  public actionGet(req: Request, res: Response): any {
     try {
-      Modality.findOne({
-        _id: req.params.id
-      })
-          .then((modality) => {
-            if (_.isEmpty(modality)) {
-              return MagicResponse.notFound(res);
-            }
-
-            return MagicResponse.ok(res, modality);
-          })
+      Course.findById(req.params.id)
+          .then((course) => MagicResponse.ok(res, course))
           .catch(() => MagicResponse.internalServer(res));
     } catch (ex) {
       return MagicResponse.internalServer(res);
@@ -42,9 +34,10 @@ class ModalitiesController {
 
   public actionCreate(req: Request, res: Response): any {
     try {
-      const result = _.pick(req.body, 'type', 'say', 'ask', 'discuss');
+      const result = _.pick(req.body, 'title', 'category', 'description', 'objective',
+          'competencies', 'course_project', 'diagnostic');
 
-      return Modality.create(result)
+      return Course.create(result)
           .then((data) => MagicResponse.created(res, data))
           .catch((err) => MagicResponse.unprocessableEntity(res, err));
     } catch (ex) {
@@ -54,18 +47,18 @@ class ModalitiesController {
 
   public actionUpdate(req: Request, res: Response): any {
     try {
-      Modality.findById(req.params.id)
-          .then((modality) => {
-            if (_.isEmpty(modality)) {
+      Course.findById(req.params.id)
+          .then((course) => {
+            if (_.isEmpty(course)) {
               return MagicResponse.notFound(res);
             }
 
-            const result = _.pick(req.body,
-                'type', 'say', 'ask', 'discuss');
+            const result = _.pick(req.body, 'title', 'category', 'description', 'objective',
+                'competencies', 'course_project', 'diagnostic');
 
-            _.assign(modality, result);
+            _.assign(course, result);
 
-            modality.save()
+            course.save()
                 .then((data) => MagicResponse.ok(res, data))
                 .catch((err) => MagicResponse.unprocessableEntity(res, err));
           })
@@ -77,13 +70,13 @@ class ModalitiesController {
 
   public actionDelete(req: Request, res: Response): any {
     try {
-      return Modality.findById(req.params.id)
-          .then((modality) => {
-            if (_.isEmpty(modality)) {
+      return Course.findById(req.params.id)
+          .then((course) => {
+            if (_.isEmpty(course)) {
               return MagicResponse.notFound(res);
             }
 
-            return modality.remove()
+            return course.remove()
                 .then(() => MagicResponse.noContent(res));
           })
           .catch(() => MagicResponse.internalServer(res));
@@ -93,4 +86,4 @@ class ModalitiesController {
   }
 }
 
-export default new ModalitiesController();
+export default new CourseController();

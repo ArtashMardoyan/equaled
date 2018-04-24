@@ -1,0 +1,1178 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Equaled
+  description: Equal ed API
+host: 'equaled-coreplatform-be.staging.devguru.co'
+basePath: /api/
+tags:
+  - name: Lessons
+    description: API for Lessons
+  - name: Phases
+    description: API for Phases
+  - name: Activities
+    description: API for Activities
+  - name: ActivityStep
+    description: API for ActivityStep
+  - name: Modalities
+    description: API for Modalities
+  - name: LessonActivities
+    description: API for LessonActivities
+  - name: Courses
+    description: API for Courses
+  - name: Semesters
+    description: API for Semesters
+  - name: Units
+    description: API for Units
+  - name: Vocabulary
+    description: API for Vocabulary
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /lessons:
+      get:
+        tags:
+          - Lessons
+        summary: Get all lessons
+        parameters:
+          - name: page
+            in: query
+            description: page number
+            type: number
+          - name: limit
+            in: query
+            description: max items per page
+            type: number
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Lesson'
+          '404':
+            description: Not found
+      post:
+        tags:
+          - Lessons
+        summary: Create Lesson
+        parameters:
+          - name: body
+            in: body
+            description: Lesson properties
+            schema:
+              $ref: '#/definitions/Lesson'
+        responses:
+          '201':
+            description: Created
+            schema:
+              $ref: '#/definitions/Lesson'
+          '422':
+            description: Unprocessable entity
+  '/lessons/{id}':
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of lesson
+          type: string
+      get:
+        tags:
+          - Lessons
+        summary: Get Lesson by Id
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Lesson'
+          '404':
+            description: Not found
+      put:
+        tags:
+          - Lessons
+        summary: Update Lesson
+        parameters:
+          - name: body
+            in: body
+            description: Lesson properties
+            schema:
+              $ref: '#/definitions/Lesson'
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Lesson'
+          '404':
+            description: Not found
+          '422':
+            description: Unprocessable entity
+      delete:
+        tags:
+          - Lessons
+        summary: Delete Lesson
+        responses:
+          '204':
+            description: No content
+          '404':
+            description: Not found
+  /phases:
+      get:
+        tags:
+          - Phases
+        summary: Get all phases
+        parameters:
+          - name: page
+            in: query
+            description: page number
+            type: number
+          - name: limit
+            in: query
+            description: max items per page
+            type: number
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Phase'
+          '404':
+            description: Not found
+      post:
+        tags:
+          - Phases
+        summary: Create Phase
+        parameters:
+          - name: body
+            in: body
+            description: Phase properties
+            schema:
+              $ref: '#/definitions/Phase'
+        responses:
+          '201':
+            description: Created
+            schema:
+              $ref: '#/definitions/Phase'
+          '422':
+            description: Unprocessable entity
+  '/phases/{id}':
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of Phase
+          type: string
+      get:
+        tags:
+          - Phases
+        summary: Get Phase by Id
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Phase'
+          '404':
+            description: Not found
+      put:
+        tags:
+          - Phases
+        summary: Update Phase
+        parameters:
+          - name: body
+            in: body
+            description: Phase properties
+            schema:
+              $ref: '#/definitions/Phase'
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Phase'
+          '404':
+            description: Not found
+          '422':
+            description: Unprocessable entity
+      delete:
+        tags:
+          - Phases
+        summary: Delete Phase
+        responses:
+          '204':
+            description: No content
+          '404':
+            description: Not found
+  /activities:
+      get:
+        tags:
+          - Activities
+        summary: Get all activities
+        parameters:
+          - name: page
+            in: query
+            description: page number
+            type: number
+          - name: limit
+            in: query
+            description: max items per page
+            type: number
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Activity'
+          '404':
+            description: Not found
+      post:
+        tags:
+          - Activities
+        summary: Create Activity
+        parameters:
+          - name: body
+            in: body
+            description: Activity properties
+            schema:
+              $ref: '#/definitions/Activity'
+        responses:
+          '201':
+            description: Created
+            schema:
+              $ref: '#/definitions/Activity'
+          '422':
+            description: Unprocessable entity
+  '/activities/{id}':
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of activity
+          type: string
+      get:
+        tags:
+          - Activities
+        summary: Get Activity by Id
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Activity'
+          '404':
+            description: Not found
+      put:
+        tags:
+          - Activities
+        summary: Update Activity
+        parameters:
+          - name: body
+            in: body
+            description: Activity properties
+            schema:
+              $ref: '#/definitions/Activity'
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Activity'
+          '404':
+            description: Not found
+          '422':
+            description: Unprocessable entity
+      delete:
+        tags:
+          - Activities
+        summary: Delete Activity
+        responses:
+          '204':
+            description: No content
+          '404':
+            description: Not found
+  /activityStep:
+      get:
+        tags:
+          - ActivityStep
+        summary: Get all ActivityStep
+        parameters:
+          - name: page
+            in: query
+            description: page number
+            type: number
+          - name: limit
+            in: query
+            description: max items per page
+            type: number
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/ActivityStep'
+          '404':
+            description: Not found
+      post:
+        tags:
+          - ActivityStep
+        summary: Create ActivityStep
+        parameters:
+          - name: body
+            in: body
+            description: ActivityStep properties
+            schema:
+              $ref: '#/definitions/ActivityStep'
+        responses:
+          '201':
+            description: Created
+            schema:
+              $ref: '#/definitions/ActivityStep'
+          '422':
+            description: Unprocessable entity
+  '/activityStep/{id}':
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of ActivityStep
+          type: string
+      get:
+        tags:
+          - ActivityStep
+        summary: Get ActivityStep by Id
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/ActivityStep'
+          '404':
+            description: Not found
+      put:
+        tags:
+          - ActivityStep
+        summary: Update ActivityStep
+        parameters:
+          - name: body
+            in: body
+            description: ActivityStep properties
+            schema:
+              $ref: '#/definitions/ActivityStep'
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/ActivityStep'
+          '404':
+            description: Not found
+          '422':
+            description: Unprocessable entity
+      delete:
+        tags:
+          - ActivityStep
+        summary: Delete ActivityStep
+        responses:
+          '204':
+            description: No content
+          '404':
+            description: Not found
+  /modalities:
+      get:
+        tags:
+          - Modalities
+        summary: Get all modalities
+        parameters:
+          - name: page
+            in: query
+            description: page number
+            type: number
+          - name: limit
+            in: query
+            description: max items per page
+            type: number
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Modality'
+          '404':
+            description: Not found
+      post:
+        tags:
+          - Modalities
+        summary: Create Modality
+        parameters:
+          - name: body
+            in: body
+            description: Modality properties
+            schema:
+              $ref: '#/definitions/Modality'
+        responses:
+          '201':
+            description: Created
+            schema:
+              $ref: '#/definitions/Modality'
+          '422':
+            description: Unprocessable entity
+  '/modalities/{id}':
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of modality
+          type: string
+      get:
+        tags:
+          - Modalities
+        summary: Get Modality by Id
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Modality'
+          '404':
+            description: Not found
+      put:
+        tags:
+          - Modalities
+        summary: Update Modality
+        parameters:
+          - name: body
+            in: body
+            description: Modality properties
+            schema:
+              $ref: '#/definitions/Modality'
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/Modality'
+          '404':
+            description: Not found
+          '422':
+            description: Unprocessable entity
+      delete:
+        tags:
+          - Modalities
+        summary: Delete Modality
+        responses:
+          '204':
+            description: No content
+          '404':
+            description: Not found
+  /lessonActivities:
+      get:
+        tags:
+          - LessonActivities
+        summary: Get all LessonActivities
+        parameters:
+          - name: page
+            in: query
+            description: page number
+            type: number
+          - name: limit
+            in: query
+            description: max items per page
+            type: number
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/LessonActivity'
+          '404':
+            description: Not found
+      post:
+        tags:
+          - LessonActivities
+        summary: Create LessonActivity
+        parameters:
+          - name: body
+            in: body
+            description: LessonActivity properties
+            schema:
+              $ref: '#/definitions/LessonActivity'
+        responses:
+          '201':
+            description: Created
+            schema:
+              $ref: '#/definitions/LessonActivity'
+          '422':
+            description: Unprocessable entity
+  '/lessonActivities/{id}':
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of LessonActivity
+          type: string
+      put:
+        tags:
+          - LessonActivities
+        summary: Update LessonActivity
+        parameters:
+          - name: body
+            in: body
+            description: Lesson Activity properties
+            schema:
+              $ref: '#/definitions/LessonActivity'
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/LessonActivity'
+          '404':
+            description: Not found
+          '422':
+            description: Unprocessable entity
+      delete:
+        tags:
+          - LessonActivities
+        summary: Delete LessonActivity
+        responses:
+          '204':
+            description: No content
+          '404':
+            description: Not found
+  /courses:
+    get:
+      tags:
+        - Courses
+      summary: Get all courses
+      parameters:
+        - name: limit
+          in: query
+          description: max items per page
+          type: number
+        - name: page
+          in: query
+          description: page number
+          type: number
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Course'
+    post:
+      tags:
+        - Courses
+      summary: Create Course
+      parameters:
+        - name: body
+          in: body
+          description: Courses properties
+          schema:
+            $ref: '#/definitions/Course'
+      responses:
+        '201':
+          description: OK
+  '/courses/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID of course
+        type: string
+    get:
+      tags:
+        - Courses
+      summary: Get one course detail by ID
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Course'
+    put:
+      tags:
+        - Courses
+      summary: Update Course
+      parameters:
+        - name: body
+          in: body
+          description: Course properties
+          schema:
+            $ref: '#/definitions/Course'
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - Courses
+      summary: Delete Course
+      responses:
+        '204':
+          description: OK
+  /semesters:
+    get:
+      tags:
+        - Semesters
+      summary: Get all Semesters
+      parameters:
+        - name: limit
+          in: query
+          description: max items per page
+          type: number
+        - name: page
+          in: query
+          description: page number
+          type: number
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Semester'
+    post:
+      tags:
+        - Semesters
+      summary: Create Semester
+      parameters:
+        - name: body
+          in: body
+          description: Semesters properties
+          schema:
+            $ref: '#/definitions/Semester'
+      responses:
+        '201':
+          description: OK
+  '/semesters/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID of semester
+        type: string
+    get:
+      tags:
+        - Semesters
+      summary: Get one semester detail by ID
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Semester'
+    put:
+      tags:
+        - Semesters
+      summary: Update Semester
+      parameters:
+        - name: body
+          in: body
+          description: Semester properties
+          schema:
+            $ref: '#/definitions/Semester'
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - Semesters
+      summary: Delete Semester
+      responses:
+        '204':
+          description: OK
+  /units:
+    get:
+      tags:
+        - Units
+      summary: Get all units
+      parameters:
+        - name: limit
+          in: query
+          description: max items per page
+          type: number
+        - name: page
+          in: query
+          description: page number
+          type: number
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Unit'
+    post:
+      tags:
+        - Units
+      summary: Create unit
+      parameters:
+        - name: body
+          in: body
+          description: Units properties
+          schema:
+            $ref: '#/definitions/Unit'
+      responses:
+        '201':
+          description: OK
+  '/units/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID of course
+        type: string
+    get:
+      tags:
+        - Units
+      summary: Get one unit detail by ID
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Unit'
+    put:
+      tags:
+        - Units
+      summary: Update Unit
+      parameters:
+        - name: body
+          in: body
+          description: Unit properties
+          schema:
+            $ref: '#/definitions/Unit'
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - Units
+      summary: Delete Unit
+      responses:
+        '204':
+          description: OK
+  /vocabularies:
+    get:
+      tags:
+        - Vocabulary
+      summary: Get all vocabularies
+      parameters:
+        - name: limit
+          in: query
+          description: max items per page
+          type: number
+        - name: page
+          in: query
+          description: page number
+          type: number
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Vocabulary'
+    post:
+      tags:
+        - Vocabulary
+      summary: Create vocabulary
+      parameters:
+        - in: body
+          name: body
+          description: The vocabulary to create.
+          schema:
+            type: object
+            required:
+              - linked
+              - vocabulary
+            properties:
+              linked:
+                type: string
+              vocabulary:
+                type: array
+                items:
+                  type: string
+              otherIds:
+                type: array
+                items:
+                  type: string
+      responses:
+        '201':
+          description: OK
+  '/vocabularies/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID of course
+        type: string
+    get:
+      tags:
+        - Vocabulary
+      summary: Get one vocabulary detail by ID
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Vocabulary'
+    put:
+      tags:
+        - Vocabulary
+      summary: Update Vocabulary
+      parameters:
+        - in: body
+          name: body
+          description: The vocabulary to create.
+          schema:
+            type: object
+            required:
+              - linked
+              - vocabulary
+            properties:
+              linked:
+                type: string
+              vocabulary:
+                type: array
+                items:
+                  type: string
+              otherIds:
+                type: array
+                items:
+                  type: string
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - Vocabulary
+      summary: Delete Vocabulary
+      responses:
+        '204':
+          description: OK
+definitions:
+  Lesson:
+      required:
+        - title
+        - overview
+        - hasChecklist
+        - backgroundInfo
+      properties:
+        _id:
+          type: string
+          readOnly: true
+          uniqueItems: true
+        title:
+          type: string
+        overview:
+          type: string
+        hasChecklist:
+          type: boolean
+        checklist:
+          type: object
+          properties:
+            equipment:
+              type: string
+            printOuts:
+              type: string
+            instructions:
+              type: string
+        backgroundInfo:
+          type: object
+          properties:
+            approach:
+              type: string
+            content:
+              type: string
+            standards:
+              type: array
+              items:
+                type: string
+            competencies:
+              type: array
+              items:
+                type: string
+        phases:
+          type: array
+          items:
+            $ref: '#/definitions/Phase'
+  Phase:
+      required:
+        - name
+        - description
+        - duration
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        duration:
+          type: number
+        activities:
+          type: array
+          items:
+            $ref: '#/definitions/Activity'
+  Activity:
+      required:
+        - title
+        - shortDescription
+        - objectives
+        - duration
+        - competencies
+        - templateType
+        - modality
+      properties:
+        _id:
+          type: string
+          readOnly: true
+          uniqueItems: true
+        title:
+          type: string
+        shortDescription:
+          type: string
+        objectives:
+          type: string
+        duration:
+          type: number
+        competencies:
+          type: array
+          items:
+            type: string
+        templateType:
+          type: string
+          enum:
+            - content
+            - assessment
+        type:
+          type: string
+        thumbnail:
+          type: string
+        modality:
+          type: string
+          enum:
+            - whole_class
+            - groups
+            - pairs
+            - individual
+        activitySteps:
+          type: array
+          items:
+            $ref: '#/definitions/ActivityStep'
+  ActivityStep:
+      required:
+        - title
+        - shortDescription
+        - studentInstruction
+        - type
+        - contentRef
+        - teacherTips
+        - commonMisconceptions
+        - commonQuestions
+        - vocabularyWords
+        - skills
+        - vocabularyRef
+      properties:
+        _id:
+          type: string
+          readOnly: true
+          uniqueItems: true
+        title:
+          type: string
+        shortDescription:
+          type: string
+        studentInstruction:
+          type: string
+        type:
+          type: string
+          enum:
+            - slide
+            - video
+            - quiz
+            - interactive
+        contentRef:
+          type: string
+        teacherTips:
+          type: array
+          items:
+            type: integer
+        commonMisconceptions:
+          type: array
+          items:
+            type: string
+        commonQuestions:
+          type: array
+          items:
+            type: string
+        vocabularyWords:
+          type: array
+          items:
+            type: string
+        skills:
+          type: array
+          items:
+            type: string
+        phase:
+           type: string
+           enum:
+            - test1
+            - test2
+            - test3
+            - test4
+        duration:
+          type: number
+        additionalInfo:
+          type: string
+        contentType:
+          type: string
+          enum:
+            - video
+            - image
+            - html
+        defaultModality:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Modality'
+        alternativeModality:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Modality'
+        vocabulary:
+                   $ref: '#/definitions/Vocabulary'
+  Modality:
+      required:
+        - type
+        - say
+        - ask
+        - discuss
+      properties:
+        _id:
+          type: string
+          readOnly: true
+          uniqueItems: true
+        type:
+          type: string
+          enum:
+            - whole_class
+            - groups
+            - pairs
+            - individual
+        say:
+          type: string
+        ask:
+          type: string
+        discuss:
+          type: string
+  LessonActivity:
+      required:
+        - lessonId
+        - activityId
+        - phaseTitle
+      properties:
+        _id:
+          type: string
+          readOnly: true
+          uniqueItems: true
+        lessonId:
+          type: string
+        activityId:
+          type: string
+        phaseTitle:
+          type: string
+  Course:
+    required:
+      - title
+      - description
+      - objective
+      - competencies
+      - course_project
+      - diagnostic
+    properties:
+      _id:
+        type: string
+        readOnly: true
+        uniqueItems: true
+      title:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+      objective:
+        type: string
+      competencies:
+        type: string
+      course_project:
+        type: string
+      diagnostic:
+        type: string
+  Semester:
+    required:
+      - title
+      - type
+      - courseId
+    properties:
+      _id:
+        type: string
+        readOnly: true
+        uniqueItems: true
+      title:
+        type: string
+      active:
+        type: boolean
+        default: true
+      year:
+        type: string
+      start_date:
+        type: string
+        format: date-time
+      end_date:
+        type: string
+        format: date-time
+      type:
+        type: string
+        enum:
+          - fall
+          - spring
+          - all_year
+        default: all_year
+      courseId:
+        $ref: '#/definitions/Course'
+  Unit:
+    required:
+      - title
+    properties:
+      _id:
+        type: string
+        readOnly: true
+        uniqueItems: true
+      title:
+        type: string
+      active:
+        type: boolean
+        default: true
+      unit_order:
+        type: integer
+      summary:
+        type: object
+        properties:
+          text:
+            type: string
+          video_path:
+            type: string
+      unit_guide:
+        type: object
+        properties:
+          text:
+            type: string
+          download_link:
+            type: string
+          size:
+            type: string
+      semesterId:
+        $ref: '#/definitions/Semester'
+      lessons:
+        type: array
+        items:
+          type: object
+          properties:
+            lessonId:
+              $ref: '#/definitions/Lesson'
+            type:
+              type: string
+              enum:
+                - lesson
+                - project
+                - assessment
+              default: lesson
+            order:
+              type: integer
+  Vocabulary:
+    required:
+      - vocabulary
+    properties:
+      _id:
+        type: string
+        readOnly: true
+        uniqueItems: true
+      linked:
+        type: string
+      vocabulary:
+        type: array
+        items:
+          type: string
